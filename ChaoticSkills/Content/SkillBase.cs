@@ -28,6 +28,7 @@ namespace ChaoticSkills.Content {
         public virtual List<string> Keywords { get; } = new();
         public abstract Sprite SkillIcon { get; }
         public virtual UnlockableDef Unlock { get; } = null;
+        public virtual bool AutoApply { get; } = true;
         public SkillDef SkillDef;
 
         public void Init() {
@@ -55,35 +56,38 @@ namespace ChaoticSkills.Content {
                 SkillDef.keywordTokens = newKeywords.ToArray();
             }
 
-            GameObject survivor = Survivor.Load<GameObject>();
-            SkillLocator skillLocator = survivor.GetComponent<SkillLocator>();
 
-            SkillFamily family = null;
+            if (AutoApply) {
+                GameObject survivor = Survivor.Load<GameObject>();
+                SkillLocator skillLocator = survivor.GetComponent<SkillLocator>();
 
-            switch (Slot) {
-                case SkillSlot.Primary:
-                    family = skillLocator.primary.skillFamily;
-                    break;
-                case SkillSlot.Secondary:
-                    family = skillLocator.secondary.skillFamily;
-                    break;
-                case SkillSlot.Utility:
-                    family = skillLocator.utility.skillFamily;
-                    break;
-                case SkillSlot.Special:
-                    family = skillLocator.special.skillFamily;
-                    break;
-                default:
-                    break;
+                SkillFamily family = null;
+
+                switch (Slot) {
+                    case SkillSlot.Primary:
+                        family = skillLocator.primary.skillFamily;
+                        break;
+                    case SkillSlot.Secondary:
+                        family = skillLocator.secondary.skillFamily;
+                        break;
+                    case SkillSlot.Utility:
+                        family = skillLocator.utility.skillFamily;
+                        break;
+                    case SkillSlot.Special:
+                        family = skillLocator.special.skillFamily;
+                        break;
+                    default:
+                        break;
+                }
+
+                Array.Resize(ref family.variants, family.variants.Length + 1);
+                
+                family.variants[family.variants.Length - 1] = new SkillFamily.Variant {
+                    skillDef = SkillDef,
+                    unlockableDef = Unlock,
+                    viewableNode = new ViewablesCatalog.Node(SkillDef.skillNameToken, false, null)
+                };
             }
-
-            Array.Resize(ref family.variants, family.variants.Length + 1);
-            
-            family.variants[family.variants.Length - 1] = new SkillFamily.Variant {
-                skillDef = SkillDef,
-                unlockableDef = Unlock,
-                viewableNode = new ViewablesCatalog.Node(SkillDef.skillNameToken, false, null)
-            };
 
             SkillDef.skillNameToken.Add(Name);
             string tempDesc = Description;
