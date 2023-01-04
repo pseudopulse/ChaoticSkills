@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 2958458014
+CRC: 2652571563
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: d49e6af9128e37728dca85fcfb184025
+    Hash: 69256e69b2d315cbf30c27f4e58584dd
   TypeTreeHash:
     serializedVersion: 2
     Hash: c90fc19e2679e5295d10bd00f33cb4c3
@@ -17,4 +17,5 @@ SerializeReferenceClassIdentifiers: []
 Assets:
 - Assets/Icons/Commando/SFG.png
 - Assets/Icons/Merc/Tether.png
+- Assets/Icons/Engineer/Thruster.png
 Dependencies: []
