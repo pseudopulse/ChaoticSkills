@@ -5,10 +5,11 @@ namespace ChaoticSkills.Content.Engineer {
         public override SerializableEntityStateType ActivationState => ContentAddition.AddEntityState<EntityStates.Engineer.PlaceSniper>(out bool _);
         public override float Cooldown => 30f;
         public override bool DelayCooldown => false;
-        public override string Description => "Place a turret that <style=cIsUtility>inherits all your items</style>. Fires a burst of 3 piercing bolts for <style=cIsDamage>900% damage</style> per shot. Can place only 1. ";
+        public override string Description => "Place a turret that <style=cIsUtility>inherits all your items</style>. Fires a burst of 3 piercing bolts for <style=cIsDamage>700% damage</style> per shot that <style=cDeath>slow</style>. Can place only 1. ";
         public override bool Agile => false;
         public override bool IsCombat => true;
         public override string LangToken => "Sniper";
+        public override int StockToConsume => 0;
         public override int MaxStock => 1;
         public override UnlockableDef Unlock => null;
         public override string Machine => "Weapon";
@@ -53,7 +54,7 @@ namespace ChaoticSkills.Content.Engineer {
             foreach (AISkillDriver driver in SniperTurretMaster.GetComponents<AISkillDriver>()) {
                 switch (driver.customName) {
                     case "FireAtEnemy":
-                        driver.maxDistance = 180f;
+                        driver.maxDistance = 90f;
                         driver.activationRequiresTargetLoS = true;
                         break;
                     default:

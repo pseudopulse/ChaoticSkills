@@ -3,9 +3,9 @@ using EntityStates.Merc.Weapon;
 
 namespace ChaoticSkills.EntityStates.Engineer {
     public class FireBolt : BaseState {
-        private float damageCoeff = 9f;
+        private float damageCoeff = 7f;
         private float procCoefficient = 1f;
-        private float duration = 1.9f;
+        private float duration = 2.1f;
         private int shotsFired = 0;
         private float delay = 0.3f;
         private float stopwatch = 0f;
@@ -32,6 +32,7 @@ namespace ChaoticSkills.EntityStates.Engineer {
                 attack.radius = 1f;
                 attack.owner = base.gameObject;
                 attack.weapon = base.gameObject;
+                attack.damageType = DamageType.SlowOnHit;
 
                 attack.Fire();
             }

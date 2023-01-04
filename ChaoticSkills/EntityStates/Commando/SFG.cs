@@ -27,7 +27,7 @@ namespace ChaoticSkills.EntityStates.Commando {
                 ProjectileManager.instance.FireProjectile(info);
 
                 if (base.characterMotor) {
-                    base.characterMotor.ApplyForce(base.GetAimRay().direction * -350f, true, false);
+                    base.characterMotor.ApplyForce(base.GetAimRay().direction * -500f, true, false);
                 }
             }
         }

@@ -120,6 +120,9 @@ namespace ChaoticSkills.EntityStates.Merc {
                 if (!tetherTargets.Contains(pair.Key)) {
                     pairs.Add(pair);
                 }
+                else if (Vector3.Distance(pair.Key.transform.position, base.transform.position) < 5) {
+                    pairs.Add(pair);
+                }
             }
 
             for (int i = 0; i < pairs.Count; i++) {

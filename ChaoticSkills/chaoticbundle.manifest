@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 1484932109
+CRC: 547789867
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 014e9639ca5b36ac3f0bf34f42fb4f36
+    Hash: 3e00c0649cd4cbe6b13c8e67d47c4639
   TypeTreeHash:
     serializedVersion: 2
     Hash: c90fc19e2679e5295d10bd00f33cb4c3
@@ -19,4 +19,5 @@ Assets:
 - Assets/Icons/Merc/Tether.png
 - Assets/Icons/Engineer/Thruster.png
 - Assets/Icons/Engineer/Sniper.png
+- Assets/Icons/Captain/Design.png
 Dependencies: []

@@ -3,14 +3,15 @@ using EntityStates.Merc.Weapon;
 
 namespace ChaoticSkills.EntityStates.Engineer {
     public class Thruster : BaseState {
-        private float forwardForce = 2900f;
-        private float upwardForce = 1700f;
+        private float forwardForce = 3600f;
+        private float upwardForce = 4000f;
         private float upwardDelay = 0.7f;
         private bool hasThrusted = false;
 
         public override void OnEnter()
         {
             base.OnEnter();
+            base.characterMotor.velocity = Vector3.zero;
             base.characterMotor.ApplyForce(Vector3.up * upwardForce, true);
             AkSoundEngine.PostEvent(Events.Play_item_use_BFG_explode, base.gameObject);
         }
@@ -26,7 +27,6 @@ namespace ChaoticSkills.EntityStates.Engineer {
                 orig(self, body, Vector3.zero);
                 float damageCoeff = Mathf.Clamp(1f + (Mathf.Abs(impactVelocity.y * 5) * 0.3f), 1f, 25f);
                 float radiusCoeff = Mathf.Clamp(1f + (Mathf.Abs(impactVelocity.y * 5) * 0.3f), 1f, 3f);
-                Debug.Log(base.damageStat * damageCoeff);
                 BlastAttack attack = new();
                 attack.damageType = DamageType.Stun1s;
                 attack.baseDamage = base.damageStat * damageCoeff;
