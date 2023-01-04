@@ -1,11 +1,10 @@
 {
-	"name": "ModName",
+	"name": "ChaoticSkills",
 	"version_number": "1.0.0",
-	"website_url": "",
-	"description": "ModDesc",
+	"website_url": "https://github.com/pseudopulse/ChaoticSkills",
+	"description": "Adds various alternate skills.",
 	"dependencies": [
 		"bbepis-BepInExPack-5.4.9",
-		"RiskofThunder-HookGenPatcher-1.2.1",
-        "tristanmcpherson-R2API-4.4.1"
+		"RiskofThunder-HookGenPatcher-1.2.1"
 	]
 }
