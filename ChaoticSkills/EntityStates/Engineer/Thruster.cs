@@ -4,7 +4,7 @@ using EntityStates.Merc.Weapon;
 namespace ChaoticSkills.EntityStates.Engineer {
     public class Thruster : BaseState {
         private float forwardForce = 3600f;
-        private float upwardForce = 4000f;
+        private float upwardForce = 2400f;
         private float upwardDelay = 0.7f;
         private bool hasThrusted = false;
 
