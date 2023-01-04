@@ -14,6 +14,7 @@ namespace ChaoticSkills.Content {
     public abstract class SkillBase {
         public abstract SerializableEntityStateType ActivationState { get; }
         public abstract float Cooldown { get; }
+        public virtual int StockToConsume { get; } = 1;
         public abstract string Machine { get; }
         public abstract int MaxStock { get; }
         public abstract string LangToken { get; }
@@ -43,7 +44,7 @@ namespace ChaoticSkills.Content {
             SkillDef.isCombatSkill = IsCombat;
             SkillDef.activationStateMachineName = Machine;
             SkillDef.beginSkillCooldownOnSkillEnd = DelayCooldown;
-
+            SkillDef.stockToConsume = StockToConsume;
             List<string> newKeywords = Keywords;
 
             if (Agile) {
