@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 3841073858
+CRC: 3484906526
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 5fdce4d92048111ef753a540730958f5
+    Hash: 49668de782a445b6acdf1b7e779526d3
   TypeTreeHash:
     serializedVersion: 2
     Hash: c90fc19e2679e5295d10bd00f33cb4c3
@@ -15,6 +15,7 @@ ClassTypes:
   Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers: []
 Assets:
+- Assets/Icons/Captain/VoidGaze.png
 - Assets/Icons/Commando/SFG.png
 - Assets/Icons/Engineer/Medic.png
 - Assets/Icons/Engineer/Flamethrower.png

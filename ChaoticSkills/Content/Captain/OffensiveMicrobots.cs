@@ -55,13 +55,19 @@ namespace ChaoticSkills.Content.Captain {
             };
         }
 
-        private class OffensiveMatrixController : MonoBehaviour {
+        enum AttackType {
+            Fire,
+            FirePassive
+        }
+
+        public class OffensiveMatrixController : MonoBehaviour {
             private CharacterBody self => GetComponent<CharacterBody>();
             private InputBankTest input => GetComponent<InputBankTest>();
             private List<Microbot> microbots;
             private float speed = 9f;
             private float initialTime = Run.instance.GetRunStopwatch();
             private Vector3[] planes = { Vector3.up, Vector3.forward, Vector3.down };
+            private float stopwatch = 0f;
             struct Microbot {
                 public GameObject microbot;
                 public float mainSpeed;
@@ -72,6 +78,7 @@ namespace ChaoticSkills.Content.Captain {
                 public float targetSpeed;
                 public float targetOffset;
                 public float targetDistance;
+                public AttackType type;
             }
             private void Start() {
                 if (NetworkServer.active) {
@@ -88,6 +95,17 @@ namespace ChaoticSkills.Content.Captain {
                         bot.microbot.transform.localScale *= 0.3f;
                         bot.microbot.AddComponent<NetworkIdentity>();
                         bot.microbot.RemoveComponent<ModelPanelParameters>();
+                        switch (i) {
+                            case 0:
+                                bot.type = AttackType.Fire;
+                                break;
+                            case 1:
+                                bot.type = AttackType.FirePassive;
+                                break;
+                            case 2:
+                                bot.type = AttackType.Fire;
+                                break;
+                        }
                         bot.initialRadial = Quaternion.AngleAxis(UnityEngine.Random.Range(0, 360), bot.plane) * self.transform.forward;
                         microbots.Add(bot);
                     }
@@ -98,6 +116,11 @@ namespace ChaoticSkills.Content.Captain {
 
             private void FixedUpdate() {
                 if (NetworkServer.active) {
+                    stopwatch += Time.fixedDeltaTime;
+                    if (stopwatch >= 1.3f) {
+                        stopwatch = 0f;
+                        FirePassive();
+                    }
                     for (int i = 0; i < 3; i++) {
                         Microbot bot = microbots[i];
                         float angle = (Run.instance.GetRunStopwatch() - initialTime) * bot.mainSpeed;
@@ -116,8 +139,8 @@ namespace ChaoticSkills.Content.Captain {
                 }
             }
 
-            private void Fire(GenericSkill skill) {
-                foreach (Microbot bot in microbots) {
+            public void Fire(GenericSkill skill) {
+                foreach (Microbot bot in microbots.Where(x => x.type == AttackType.Fire)) {
                     BulletAttack attack = new();
                     attack.origin = bot.microbot.transform.position;
                     attack.owner = self.gameObject;
@@ -160,6 +183,62 @@ namespace ChaoticSkills.Content.Captain {
                     attack.Fire();
                 }
                 AkSoundEngine.PostEvent(Events.Play_captain_drone_zap, self.gameObject);
+            }
+
+            private void FirePassive() {
+                foreach (Microbot bot in microbots.Where(x => x.type == AttackType.FirePassive)) {
+                    List<Collider> colliders = Physics.OverlapSphere(bot.microbot.transform.position, 25, LayerIndex.entityPrecise.mask, QueryTriggerInteraction.Ignore).ToList().Where(
+                        x => x.GetComponent<HurtBox>() && x.GetComponent<HurtBox>().teamIndex != TeamIndex.Player
+                    ).ToList();
+                    if (colliders.Count >= 1) {
+                        Collider col = colliders.First();
+                        if (col.GetComponent<HurtBox>()) {
+                            HurtBox box = col.GetComponent<HurtBox>();
+                            Vector3 aimDirection = (box.transform.position - bot.microbot.transform.position).normalized;
+
+                            BulletAttack attack = new();
+                            attack.origin = bot.microbot.transform.position;
+                            attack.owner = self.gameObject;
+                            attack.weapon = bot.microbot;
+                            attack.aimVector = aimDirection;
+                            attack.damage = self.damage * 2f;
+                            attack.isCrit = false;
+                            attack.minSpread = 0f;
+                            attack.maxSpread = 1.5f;
+                            attack.procCoefficient = 0.8f;
+                            attack.damageType = DamageType.SlowOnHit;
+                            attack.damageColorIndex = DamageColorIndex.Item;
+                            attack.tracerEffectPrefab = Utils.Paths.GameObject.TracerCaptainDefenseMatrix.Load<GameObject>();
+                            attack.filterCallback = delegate (BulletAttack attack, ref BulletAttack.BulletHit hit) {
+                                if (hit.hitHurtBox && hit.hitHurtBox.teamIndex != TeamIndex.Player) {
+                                    return true;
+                                }
+                                else {
+                                    return false;
+                                }
+                            };
+                            if (Physics.Raycast(bot.microbot.transform.position, aimDirection, out RaycastHit hit, Mathf.Infinity, LayerIndex.world.mask)) {
+                                BlastAttack battack = new();
+                                battack.damageType = DamageType.Silent;
+                                battack.baseDamage = 0;
+                                battack.radius = 4.5f;
+                                battack.position = hit.point;
+                                battack.crit = false;
+                                battack.baseForce = 3000;
+                                battack.procCoefficient = 0f;
+                                battack.teamIndex = TeamIndex.Monster;
+
+                                battack.Fire();
+                                EffectManager.SpawnEffect(Utils.Paths.GameObject.ExplosionGolem.Load<GameObject>(), new EffectData {
+                                    origin = hit.point,
+                                    scale = 3
+                                }, true);
+                            }
+        
+                            attack.Fire();
+                        }
+                    }
+                }
             }
 
             private void OnDestroy() {
