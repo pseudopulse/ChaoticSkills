@@ -3,8 +3,11 @@ Adds a bunch of alternate skills!
 
 ## Captain
 Beacon: Design (Misc) - Emits waves that cripple and knockback ALL characters.
+
 Beacon: Void (Misc) - Vo??id Fo??g slowly damages enemies within the radius.
+
 Offensive Microbots (Passive) - Gain 3 combatant microbots that fire slowing lasers at nearby enemies for 160% damage, and one alongside you for 360% damage
+
 Gaze of the Void (Primary) - Unleash a barrage of void missiles for 70% damage each. Requires time to spin up and spin down. 50% slow on self when active
 
 ## Commando
