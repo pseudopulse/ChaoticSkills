@@ -42,7 +42,7 @@ namespace ChaoticSkills.EntityStates.Engineer {
                         ai.leader.characterBody.AddTimedBuff(RoR2Content.Buffs.Immune, durationOfUber, 1);
                     }
                     else {
-                        uber += 3f * Time.fixedDeltaTime;
+                        uber += 1.5f * Time.fixedDeltaTime;
                     }
 
                     if (uber >= maxUber) {

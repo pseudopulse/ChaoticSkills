@@ -5,13 +5,13 @@ namespace ChaoticSkills.EntityStates.Engineer {
         private GameObject prefab => Utils.Paths.GameObject.DroneFlamethrowerEffect.Load<GameObject>();
         private GameObject instanceOne;
         private GameObject instanceTwo;
-        private float damageCoeffPerSecond = 3f;
+        private float damageCoeffPerSecond = 200f;
         private float procCoeff = 1f;
         private float stopwatch = 0f;
         private float ticks = 6;
         private float delay => 1f / ticks;
         private float stopwatchReset = 0f;
-        private float delayReset = 3f;
+        private float delayReset = 2f;
         private float damagePerHit => damageCoeffPerSecond / ticks;
 
         public override void OnEnter()

@@ -56,6 +56,8 @@ namespace ChaoticSkills.Content.Engineer {
                     case "FireAtEnemy":
                         driver.maxDistance = 90f;
                         driver.activationRequiresTargetLoS = true;
+                        driver.selectionRequiresTargetLoS = true;
+                        driver.activationRequiresAimTargetLoS = true;
                         break;
                     default:
                         break;

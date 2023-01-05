@@ -28,6 +28,11 @@ namespace ChaoticSkills.Content.Commando {
             SFGGhost = PrefabAPI.InstantiateClone(Utils.Paths.GameObject.BeamSphereGhost.Load<GameObject>(), "SFGGhost");
             SFGExplosion = PrefabAPI.InstantiateClone(Utils.Paths.GameObject.BeamSphereExplosion.Load<GameObject>(), "SFGExplosion");
 
+            Utils.Paths.GameObject.BeamSphereOrbEffect.Load<GameObject>().RemoveComponents<AkEvent>();
+
+            SFGProjectile.RemoveComponents<AkEvent>();
+            SFGProjectile.RemoveComponents<AkGameObj>();
+
             SFGProjectile.transform.localScale *= 0.3f;
             SFGGhost.transform.localScale *= 0.3f;
             SFGExplosion.transform.localScale *= 0.3f;

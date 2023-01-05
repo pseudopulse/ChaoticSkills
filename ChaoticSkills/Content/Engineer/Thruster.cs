@@ -16,6 +16,7 @@ namespace ChaoticSkills.Content.Engineer {
         public override SkillSlot Slot => SkillSlot.Utility;
         public override string Survivor => Utils.Paths.GameObject.EngiBody;
         public override string Name => "Overdrive Boost";
+        public override bool MustKeyPress => true;
         public override List<string> Keywords => new() { Utils.Keywords.Stun, "KEYWORD_RESILIENT" };
 
         public override void PostCreation()

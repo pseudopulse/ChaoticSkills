@@ -19,16 +19,18 @@ namespace ChaoticSkills.Content {
         public abstract int MaxStock { get; }
         public abstract string LangToken { get; }
         public abstract string Name { get; }
-        public abstract string Survivor { get; }
-        public abstract SkillSlot Slot { get; }
+        public virtual string Survivor { get; } = null;
+        public virtual SkillSlot Slot { get; } = SkillSlot.None;
         public abstract string Description { get; }
-        public abstract bool IsCombat { get; }
-        public abstract bool Agile { get; }
-        public abstract bool DelayCooldown { get; }
+        public virtual bool IsCombat { get; } = true;
+        public virtual bool Agile { get; } = false;
+        public virtual bool DelayCooldown { get; } = false;
         public virtual List<string> Keywords { get; } = new();
         public abstract Sprite SkillIcon { get; }
         public virtual UnlockableDef Unlock { get; } = null;
         public virtual bool AutoApply { get; } = true;
+        public virtual bool MustKeyPress { get; } = false;
+        public virtual bool Passive { get; } = false;
         public SkillDef SkillDef;
 
         public void Init() {
@@ -39,13 +41,15 @@ namespace ChaoticSkills.Content {
             SkillDef.baseRechargeInterval = Cooldown;
             SkillDef.baseMaxStock = MaxStock;
             SkillDef.activationState = ActivationState;
-            SkillDef.canceledFromSprinting = !Agile;
+            SkillDef.canceledFromSprinting = Passive ? false : !Agile;
             SkillDef.icon = SkillIcon;
             SkillDef.cancelSprintingOnActivation = !Agile;
             SkillDef.isCombatSkill = IsCombat;
             SkillDef.activationStateMachineName = Machine;
             SkillDef.beginSkillCooldownOnSkillEnd = DelayCooldown;
             SkillDef.stockToConsume = StockToConsume;
+            SkillDef.requiredStock = Passive ? 321 : 1;
+            SkillDef.mustKeyPress = MustKeyPress;
             List<string> newKeywords = Keywords;
 
             if (Agile) {
@@ -56,8 +60,61 @@ namespace ChaoticSkills.Content {
                 SkillDef.keywordTokens = newKeywords.ToArray();
             }
 
+            if (AutoApply && Passive) {
+                GameObject survivor = Survivor.Load<GameObject>();
+                bool wasPassiveReal = false;
 
-            if (AutoApply) {
+                foreach (GenericSkill skill in survivor.GetComponents<GenericSkill>()) {
+                    if (skill.skillName.ToLower().Contains("passive") || (skill.skillFamily as ScriptableObject).name.ToLower().Contains("passive")) {
+                        SkillFamily family = skill.skillFamily;
+
+                        Array.Resize(ref family.variants, family.variants.Length + 1);
+                
+                        family.variants[family.variants.Length - 1] = new SkillFamily.Variant {
+                            skillDef = SkillDef,
+                            unlockableDef = Unlock,
+                            viewableNode = new ViewablesCatalog.Node(SkillDef.skillNameToken, false, null)
+                        };
+                        wasPassiveReal = true;
+                        break;
+                    }
+                }
+
+                if (!wasPassiveReal) {
+                    GenericSkill skill = survivor.AddComponent<GenericSkill>();
+                    SkillLocator locator = survivor.GetComponent<SkillLocator>();
+                    SkillFamily family = ScriptableObject.CreateInstance<SkillFamily>();
+                    skill.skillName = survivor.name + "Passive";
+                    (family as ScriptableObject).name = survivor.name + "Passive";
+                    family.variants = new SkillFamily.Variant[2];
+                    
+                    family.variants[1] = new SkillFamily.Variant {
+                        skillDef = SkillDef,
+                        unlockableDef = Unlock,
+                        viewableNode = new ViewablesCatalog.Node(SkillDef.skillNameToken, false, null)
+                    };
+
+                    SkillDef oldPassive = ScriptableObject.CreateInstance<SkillDef>();
+                    oldPassive.skillNameToken = locator.passiveSkill.skillNameToken;
+                    oldPassive.skillDescriptionToken = locator.passiveSkill.skillDescriptionToken;
+                    oldPassive.activationStateMachineName = "TheAmongUs";
+                    oldPassive.activationState = new SerializableEntityStateType(typeof(Idle));
+                    oldPassive.icon = locator.passiveSkill.icon;
+                    
+                    ContentAddition.AddSkillDef(oldPassive);
+
+                    locator.passiveSkill.enabled = false;
+                    skill.hideInCharacterSelect = true;
+
+                    family.variants[0] = new SkillFamily.Variant {
+                        skillDef = oldPassive,
+                        viewableNode = new ViewablesCatalog.Node(oldPassive.skillNameToken, false, null)
+                    };
+
+                    skill._skillFamily = family;
+                }
+            }
+            else if (AutoApply) {
                 GameObject survivor = Survivor.Load<GameObject>();
                 SkillLocator skillLocator = survivor.GetComponent<SkillLocator>();
 
@@ -80,13 +137,15 @@ namespace ChaoticSkills.Content {
                         break;
                 }
 
-                Array.Resize(ref family.variants, family.variants.Length + 1);
-                
-                family.variants[family.variants.Length - 1] = new SkillFamily.Variant {
-                    skillDef = SkillDef,
-                    unlockableDef = Unlock,
-                    viewableNode = new ViewablesCatalog.Node(SkillDef.skillNameToken, false, null)
-                };
+                if (family != null) {
+                    Array.Resize(ref family.variants, family.variants.Length + 1);
+                    
+                    family.variants[family.variants.Length - 1] = new SkillFamily.Variant {
+                        skillDef = SkillDef,
+                        unlockableDef = Unlock,
+                        viewableNode = new ViewablesCatalog.Node(SkillDef.skillNameToken, false, null)
+                    };
+                }
             }
 
             SkillDef.skillNameToken.Add(Name);

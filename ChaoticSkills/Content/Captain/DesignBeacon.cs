@@ -23,6 +23,10 @@ namespace ChaoticSkills.Content.Captain {
         {
             DesignProjectile = PrefabAPI.InstantiateClone(Utils.Paths.GameObject.CaptainSupplyDropHacking.Load<GameObject>(), "DesignBeacon");
 
+            ModelLocator locator = DesignProjectile.GetComponent<ModelLocator>();
+            locator.modelTransform.Find("Indicator").Find("IndicatorRing").GetComponent<MeshRenderer>().material = Utils.Paths.Material.matLunarWardCripple.Load<Material>();
+            locator.modelTransform.Find("CaptainSupplyDropMesh").gameObject.GetComponent<SkinnedMeshRenderer>().material = Utils.Paths.Material.matMoonBoulder.Load<Material>();
+
             EntityStateMachine machine = DesignProjectile.GetComponent<EntityStateMachine>();
             machine.mainStateType = ContentAddition.AddEntityState<EntityStates.Captain.DesignState>(out bool _);
 

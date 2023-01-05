@@ -29,6 +29,9 @@ namespace ChaoticSkills {
                 SkillBase skillBase = (SkillBase)Activator.CreateInstance(skill);
                 skillBase.Init();
             }
+
+            // hopoo why
+            Misc.RealPassives.Hook();
         }
     }
 }
