@@ -8,7 +8,7 @@ Beacon: Void (Misc) - Vo??id Fo??g slowly damages enemies within the radius.
 
 Offensive Microbots (Passive) - Gain 3 combatant microbots that fire slowing lasers at nearby enemies for 160% damage, and one alongside you for 360% damage
 
-Gaze of the Void (Primary) - Unleash a barrage of void missiles for 70% damage each. Requires time to spin up and spin down. 50% slow on self when active
+Gaze of the Void (Primary) - Charge up and fire a devastating blast of slowing v??oid sp??ikes for 12x100% damage.
 
 ## Commando
 SFG-900 (Primary) - Stunning. Launch a slow-moving energy ball for 700% damage.
@@ -24,3 +24,13 @@ Thermal Blast (Primary) - Agile. Ignite. Fire dual flamethrowers for 600% damage
 
 ## Mercenary
 Fluoresence (Secondary) - Agile. Tether enemies, dragging them towards you and repeatedly strike them for 15% damage. 50% slow on self when active.
+
+# Changelog
+## 1.1.0
+- fixed thermal blast doing 100x the damage it was intended to
+- offensive microbots should break other mods less often
+- made alt engi turrets work with lysate cell
+- reworked void gaze
+- increase blast radius on sfg-900
+## 1.0.1
+- readme fix lmao

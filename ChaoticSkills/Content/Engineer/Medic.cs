@@ -76,13 +76,18 @@ namespace ChaoticSkills.Content.Engineer {
         // turret cap of 2 is hardcoded so lol lmao
         private void HopooWhy(On.RoR2.CharacterBody.orig_Start orig, CharacterBody self) {
             orig(self);
-            if (NetworkServer.active && self.bodyIndex == BodyCatalog.FindBodyIndex(MedicTurretBody)) {
-                List<TeamComponent> others = TeamComponent.GetTeamMembers(self.teamComponent.teamIndex).ToList();
-                foreach (TeamComponent component in others) {
-                    if (component.body && component.body != self && component.body.bodyIndex == BodyCatalog.FindBodyIndex(MedicTurretBody)) {
-                        component.body.master.TrueKill();
-                    }
+            int totalCount = 0;
+            if (self.bodyIndex != BodyCatalog.FindBodyIndex(MedicTurretBody)) {
+                return;
+            }
+            int maxCap = 1 + self.master.minionOwnership.ownerMaster.inventory.GetItemCount(DLC1Content.Items.EquipmentMagazineVoid);
+            if (maxCap > 2) maxCap = 2;
+            MinionOwnership[] ownerships = GameObject.FindObjectsOfType<MinionOwnership>().Where(x => x.ownerMaster == self.master.minionOwnership.ownerMaster).ToArray();
+            foreach (MinionOwnership ownership in ownerships) {
+                if (totalCount >= maxCap) {
+                    ownership.GetComponent<CharacterMaster>().TrueKill();
                 }
+                totalCount += 1;
             }
         }
 

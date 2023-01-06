@@ -32,7 +32,7 @@ namespace ChaoticSkills.Misc {
             int i = 0;
 
             foreach (GenericSkill skill in skills) {
-                if (skill.skillName.ToLower().Contains("passive") && skill.hideInCharacterSelect) {
+                if (skill.skillName != null && skill.skillName.ToLower().Contains("passive") && skill.hideInCharacterSelect) {
                     SkillDef def = skill.skillFamily.variants[loadout.bodyLoadoutManager.GetSkillVariant(bodyInfo.bodyIndex, i)].skillDef;
                     CharacterSelectController.StripDisplayData display = new CharacterSelectController.StripDisplayData {
                         enabled = true,
@@ -59,7 +59,7 @@ namespace ChaoticSkills.Misc {
                 GenericSkill[] skills = prefab.GetComponents<GenericSkill>();
 
                 for (int i = 0; i < skills.Length; i++) {
-                    if (skills[i].skillName.ToLower().Contains("passive") && skills[i].hideInCharacterSelect) {
+                    if (skills[i].skillName != null && skills[i].skillName.ToLower().Contains("passive") && skills[i].hideInCharacterSelect) {
                         self.rows.Add(LoadoutPanelController.Row.FromSkillSlot(self, self.currentDisplayData.bodyIndex, i, skills[i]));
                     }
                     else {
@@ -69,7 +69,7 @@ namespace ChaoticSkills.Misc {
                 
 
                 for (int i = 0; i < skills.Length; i++) {
-                    if (skills[i].skillName.ToLower().Contains("passive") && skills[i].hideInCharacterSelect) {
+                    if (skills[i].skillName != null && skills[i].skillName.ToLower().Contains("passive") && skills[i].hideInCharacterSelect) {
                         continue;
                     }
                     else {

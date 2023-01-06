@@ -5,7 +5,7 @@ namespace ChaoticSkills.EntityStates.Engineer {
         private GameObject prefab => Utils.Paths.GameObject.DroneFlamethrowerEffect.Load<GameObject>();
         private GameObject instanceOne;
         private GameObject instanceTwo;
-        private float damageCoeffPerSecond = 200f;
+        private float damageCoeffPerSecond = 2f;
         private float procCoeff = 1f;
         private float stopwatch = 0f;
         private float ticks = 6;

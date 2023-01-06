@@ -33,14 +33,14 @@ namespace ChaoticSkills.Content.Commando {
             SFGProjectile.RemoveComponents<AkEvent>();
             SFGProjectile.RemoveComponents<AkGameObj>();
 
-            SFGProjectile.transform.localScale *= 0.3f;
-            SFGGhost.transform.localScale *= 0.3f;
-            SFGExplosion.transform.localScale *= 0.3f;
+            // SFGProjectile.transform.localScale *= 0.3f;
+            // SFGGhost.transform.localScale *= 0.3f;
+            // SFGExplosion.transform.localScale *= 0.3f;
 
             ProjectileImpactExplosion SFGImpact = SFGProjectile.GetComponent<ProjectileImpactExplosion>();
             SFGImpact.blastDamageCoefficient = 1f;
             SFGImpact.blastProcCoefficient = 0.5f;
-            SFGImpact.blastRadius = 5f;
+            // SFGImpact.blastRadius = 5f;
             SFGImpact.explosionEffect = SFGExplosion;
 
             SFGProjectile.RemoveComponent<ProjectileProximityBeamController>();
