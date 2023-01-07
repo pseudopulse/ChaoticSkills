@@ -33,6 +33,7 @@ namespace ChaoticSkills.EntityStates.Engineer {
                 attack.owner = base.gameObject;
                 attack.weapon = base.gameObject;
                 attack.damageType = DamageType.SlowOnHit;
+                attack.isCrit = base.RollCrit();
 
                 attack.Fire();
             }

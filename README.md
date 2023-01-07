@@ -18,6 +18,8 @@ TR-80 Sniper Turret (Special) - Place a turret that inherits all of your items. 
 
 PM-30 Support Turret (Special) - Place a turret that inherits all of your items. Heals it's owner and provides them with 8 seconds of invulnerability and guaranteed critical hits after enough healing. Can place up to 1
 
+BFT-9000 (Special) - Place a massive turret that inherits all of your items. Fires a giant fucking laser with a massive blast radius for 13,567.5% 3.0 on a long cooldown. Can place up to 1.
+
 Overdrive Boost (Utility) - Agile. Stunning. Launch into the air and boost forward after a short delay. Deal 100%-2500% damage depending on fall speed. Immunity to fall damage while boosting.
 
 Thermal Blast (Primary) - Agile. Ignite. Fire dual flamethrowers for 600% damage.
@@ -26,6 +28,10 @@ Thermal Blast (Primary) - Agile. Ignite. Fire dual flamethrowers for 600% damage
 Fluoresence (Secondary) - Agile. Tether enemies, dragging them towards you and repeatedly strike them for 15% damage. 50% slow on self when active.
 
 # Changelog
+## 1.2.0
+- holy shit is that a doom reference?????
+## 1.1.1
+- sniper turrets now actually roll for critical hits
 ## 1.1.0
 - fixed thermal blast doing 100x the damage it was intended to
 - offensive microbots should break other mods less often
