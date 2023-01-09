@@ -5,6 +5,7 @@ using RoR2;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using System.Reflection;
+using BepInEx.Configuration;
 
 namespace ChaoticSkills {
     [BepInPlugin(PluginGUID, PluginName, PluginVersion)]
@@ -15,10 +16,14 @@ namespace ChaoticSkills {
         public const string PluginVersion = "1.0.0";
         public static BepInEx.Logging.ManualLogSource ModLogger;
         public static AssetBundle Assets;
+        public static ConfigFile config;
 
         public void Awake() {
             // logger
             ModLogger = Logger;
+
+            // config
+            config = Config;
 
             // assetbundle
             Assets = AssetBundle.LoadFromFile(Assembly.GetExecutingAssembly().Location.Replace("ChaoticSkills.dll", "chaoticbundle"));

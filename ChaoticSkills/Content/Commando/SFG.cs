@@ -11,6 +11,7 @@ namespace ChaoticSkills.Content.Commando {
         public override string LangToken => "SFG";
         public override int StockToConsume => 0;
         public override int MaxStock => 1;
+        public override bool SprintCancelable => false;
         public override UnlockableDef Unlock => null;
         public override string Machine => "Weapon";
         public override Sprite SkillIcon => Main.Assets.LoadAsset<Sprite>("Assets/Icons/Commando/SFG.png");

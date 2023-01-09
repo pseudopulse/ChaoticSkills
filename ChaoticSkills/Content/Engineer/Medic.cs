@@ -16,6 +16,7 @@ namespace ChaoticSkills.Content.Engineer {
         public override Sprite SkillIcon => Main.Assets.LoadAsset<Sprite>("Assets/Icons/Engineer/Medic.png");
         public override SkillSlot Slot => SkillSlot.Special;
         public override string Survivor => Utils.Paths.GameObject.EngiBody;
+        public override bool SprintCancelable => false;
         public override string Name => "PM-30 Support Turret";
         public static GameObject MedicTurretBody;
         public static GameObject MedicTurretMaster;

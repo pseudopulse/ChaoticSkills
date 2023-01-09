@@ -102,5 +102,10 @@ namespace ChaoticSkills.EntityStates.Engineer {
                 target = ai.leader.healthComponent;
             }
         }
+
+        public override InterruptPriority GetMinimumInterruptPriority()
+        {
+            return InterruptPriority.Death;
+        }
     }
 }

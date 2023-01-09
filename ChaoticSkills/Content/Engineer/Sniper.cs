@@ -19,6 +19,7 @@ namespace ChaoticSkills.Content.Engineer {
         public override string Name => "TR-80 Sniper Turret";
         public static GameObject SniperTurretBody;
         public static GameObject SniperTurretMaster;
+        public override bool SprintCancelable => false;
 
         public override void PostCreation()
         {

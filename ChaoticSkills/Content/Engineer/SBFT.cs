@@ -5,7 +5,7 @@ namespace ChaoticSkills.Content.Engineer {
         public override SerializableEntityStateType ActivationState => ContentAddition.AddEntityState<EntityStates.Engineer.PlaceBFT>(out bool _);
         public override float Cooldown => 30f;
         public override bool DelayCooldown => false;
-        public override string Description => "Place a turret that <style=cIsUtility>inherits all your items</style>. Fires a <style=cDeath>giant fucking laser</style> for <style=cIsDamage>13,567.5%</style> damage on a long cooldown. Can place only 1. ";
+        public override string Description => $"Place a turret that <style=cIsUtility>inherits all your items</style>. Fires a <style=cDeath>giant fucking laser</style> for <style=cIsDamage>{DamageCoeff * 100}%</style> damage on a long cooldown. Can place only 1. ";
         public override bool Agile => false;
         public override bool IsCombat => true;
         public override string LangToken => "BFT";
@@ -19,6 +19,8 @@ namespace ChaoticSkills.Content.Engineer {
         public override string Name => "BFT-9000";
         public static GameObject BFTBody;
         public static GameObject BFTMaster;
+        public override bool SprintCancelable => false;
+        public static float DamageCoeff => Main.config.Bind<float>("BFT", "Damage Coefficient", 13567.5f * 0.01f, "The damage coefficient of the BFT-9000").Value;
 
         public override void PostCreation()
         {

@@ -33,7 +33,7 @@ namespace ChaoticSkills.EntityStates.Merc {
 
         public override void FixedUpdate() {
             base.FixedUpdate();
-            if (base.isAuthority) {
+            if (true) {
                 stopwatch += Time.fixedDeltaTime;
 
                 if (stopwatch >= delay) {
@@ -53,32 +53,29 @@ namespace ChaoticSkills.EntityStates.Merc {
                 
 
                     foreach (HurtBox box in tetherTargets) {
-                        if (!NetworkServer.active) {
-                            continue;
-                        }
                         if (!HasInstance(box)) {
                             CreateTetherInstance(box);
                         }
 
-                        DamageInfo info = new();
-                        info.attacker = base.gameObject;
-                        info.force = (base.transform.position - box.transform.position).normalized * 500;
-                        info.crit = base.RollCrit();
-                        info.procCoefficient = 0.2f;
-                        info.procChainMask = new();
-                        info.damageType = DamageType.SlowOnHit;
-                        info.position = box.transform.position;
-                        info.damage = base.damageStat * damageCoeff;
+                        if (NetworkServer.active) {
+                            DamageInfo info = new();
+                            info.attacker = base.gameObject;
+                            info.force = (base.transform.position - box.transform.position).normalized * 500;
+                            info.crit = base.RollCrit();
+                            info.procCoefficient = 0.2f;
+                            info.procChainMask = new();
+                            info.damageType = DamageType.SlowOnHit;
+                            info.position = box.transform.position;
+                            info.damage = base.damageStat * damageCoeff;
 
-                        box.healthComponent.TakeDamageForce(info, true);
-                        info.force = Vector3.zero;
-                        box.healthComponent.TakeDamage(info);
+                            box.healthComponent.TakeDamageForce(info, true);
+                            info.force = Vector3.zero;
+                            box.healthComponent.TakeDamage(info);
+                        }
                     }
 
-                    if (NetworkServer.active) {
-                        CleanUpInstances();
-                        UpdateInstances();
-                    }
+                    CleanUpInstances();
+                    UpdateInstances();
                 }
 
                 if (!inputBank.skill2.down) {

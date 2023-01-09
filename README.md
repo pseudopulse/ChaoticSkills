@@ -10,6 +10,8 @@ Offensive Microbots (Passive) - Gain 3 combatant microbots that fire slowing las
 
 Gaze of the Void (Primary) - Charge up and fire a devastating blast of slowing v??oid sp??ikes for 12x100% damage.
 
+Crash Remote (Utility) - Call down reinforcements from the UES Safe Travels, has a long cooldown.
+
 ## Commando
 SFG-900 (Primary) - Stunning. Launch a slow-moving energy ball for 700% damage.
 
@@ -27,7 +29,21 @@ Thermal Blast (Primary) - Agile. Ignite. Fire dual flamethrowers for 600% damage
 ## Mercenary
 Fluoresence (Secondary) - Agile. Tether enemies, dragging them towards you and repeatedly strike them for 15% damage. 50% slow on self when active.
 
+## Artificer
+Overcharged Jetpack (Passive) - Hold jump midair to fly. Flying drains fuel. Fuel passively regenerates over time. Running out of fuel will temporarily disable the jetpack.
+
+Fracture (Primary) - Charge up a tracking bomb for 100%-700% damage.
 # Changelog
+## 1.3.0
+- added config for BFT-9000 damage
+- made the PM-30 support turret not break when frozen
+- the SFG-900 can no longer be sprint canceled to negate the firing delay
+- engineer turrets no longer get canceled if you try and sprint while placing one
+- made BFT-9000 more accurate
+- added Fracture as an alternate primary for artificer
+- added Overcharged Jetpack as an alternate passive for artificer
+- added Crash Remote as an alternate utility for captain
+- improved networking
 ## 1.2.0
 - holy shit is that a doom reference?????
 ## 1.1.1

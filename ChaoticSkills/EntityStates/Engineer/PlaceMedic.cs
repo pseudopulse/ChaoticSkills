@@ -10,5 +10,10 @@ namespace ChaoticSkills.EntityStates.Engineer {
             base.turretMasterPrefab = Content.Engineer.Medic.MedicTurretMaster;
             base.OnEnter();
         }
+
+        public override InterruptPriority GetMinimumInterruptPriority()
+        {
+            return InterruptPriority.Frozen;
+        }
     }
 }

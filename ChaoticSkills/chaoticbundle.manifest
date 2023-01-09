@@ -1,12 +1,12 @@
 ManifestFileVersion: 0
-CRC: 529274295
+CRC: 113681508
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 03a875e43b664e579ee02fd62631616b
+    Hash: 50e34ae4219366813565327caaf19f33
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 5541d5142b62dbae04caa72be6a03695
+    Hash: 96f11dd6eaff2944609ce4f39ca75639
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -29,6 +29,8 @@ ClassTypes:
   Script: {instanceID: 0}
 - Class: 114
   Script: {fileID: 372142912, guid: d382a022563c7517aadbc92ca1060016, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
 - Class: 114
   Script: {fileID: -2005973111, guid: 951ce57ad999ac1f040a4dceb5f8b763, type: 3}
 - Class: 114
@@ -91,6 +93,12 @@ ClassTypes:
   Script: {instanceID: 0}
 - Class: 213
   Script: {instanceID: 0}
+- Class: 222
+  Script: {instanceID: 0}
+- Class: 223
+  Script: {instanceID: 0}
+- Class: 224
+  Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers: []
 Assets:
 - Assets/Icons/Captain/VoidGaze.png
@@ -99,11 +107,15 @@ Assets:
 - Assets/Icons/Engineer/BFT.png
 - Assets/Icons/Engineer/Flamethrower.png
 - Assets/Icons/Merc/Tether.png
+- Assets/Icons/Artificer/Shard.png
 - Assets/Icons/Captain/Void.png
+- Assets/Icons/Captain/Crash.png
 - Assets/Icons/Engineer/Thruster.png
 - Assets/Prefabs/Engineer/BFT/BFTMaster.prefab
 - Assets/Icons/Captain/OffensiveMicrobots.png
 - Assets/Icons/Engineer/Sniper.png
+- Assets/Prefabs/Artificer/Jetpack/FuelIndicator.prefab
 - Assets/Icons/Captain/Design.png
 - Assets/Prefabs/Engineer/BFT/BFTBody.prefab
+- Assets/Icons/Artificer/Jetpack.png
 Dependencies: []

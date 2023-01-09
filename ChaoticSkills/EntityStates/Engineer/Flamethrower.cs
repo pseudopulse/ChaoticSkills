@@ -19,8 +19,9 @@ namespace ChaoticSkills.EntityStates.Engineer {
             base.OnEnter();
             if (base.isAuthority) {
                 damageCoeffPerSecond *= base.attackSpeedStat;
-                ResetInstances();
             }   
+
+            ResetInstances();
 
             AkSoundEngine.PostEvent(Events.Play_mage_R_start, base.gameObject);
         }
@@ -38,19 +39,19 @@ namespace ChaoticSkills.EntityStates.Engineer {
             if (instanceTwo) Destroy(instanceTwo);
 
             Transform muzzleLeft = base.FindModelChild("MuzzleLeft");
-                Transform muzzleRight = base.FindModelChild("MuzzleRight");
+            Transform muzzleRight = base.FindModelChild("MuzzleRight");
 
-                instanceOne = GameObject.Instantiate(prefab, muzzleLeft);
-                instanceOne.RemoveComponent<DestroyOnTimer>();
-                instanceTwo = GameObject.Instantiate(prefab, muzzleRight);
-                instanceTwo.RemoveComponent<DestroyOnTimer>();
-                ParticleSystem.MainModule system1 = instanceOne.GetComponent<ScaleParticleSystemDuration>().particleSystems[0].main;
-                ParticleSystem.MainModule system2 = instanceTwo.GetComponent<ScaleParticleSystemDuration>().particleSystems[0].main;
-                system1.duration = 900f;
-                system2.duration = 900f;
+            instanceOne = GameObject.Instantiate(prefab, muzzleLeft);
+            instanceOne.RemoveComponent<DestroyOnTimer>();
+            instanceTwo = GameObject.Instantiate(prefab, muzzleRight);
+            instanceTwo.RemoveComponent<DestroyOnTimer>();
+            ParticleSystem.MainModule system1 = instanceOne.GetComponent<ScaleParticleSystemDuration>().particleSystems[0].main;
+            ParticleSystem.MainModule system2 = instanceTwo.GetComponent<ScaleParticleSystemDuration>().particleSystems[0].main;
+            system1.duration = 900f;
+            system2.duration = 900f;
 
-                instanceOne.RemoveComponent<ScaleParticleSystemDuration>();
-                instanceTwo.RemoveComponent<ScaleParticleSystemDuration>();
+            instanceOne.RemoveComponent<ScaleParticleSystemDuration>();
+            instanceTwo.RemoveComponent<ScaleParticleSystemDuration>();
         }
 
         public override InterruptPriority GetMinimumInterruptPriority()
@@ -61,14 +62,15 @@ namespace ChaoticSkills.EntityStates.Engineer {
         public override void FixedUpdate()
         {
             base.FixedUpdate();
-            if (base.isAuthority) {
-                stopwatch += Time.fixedDeltaTime;
-                stopwatchReset += Time.fixedDeltaTime;
+            stopwatch += Time.fixedDeltaTime;
+            stopwatchReset += Time.fixedDeltaTime;
 
-                if (stopwatchReset >= delayReset) {
-                    stopwatchReset = 0f;
-                    ResetInstances();
-                }
+            if (stopwatchReset >= delayReset) {
+                stopwatchReset = 0f;
+                ResetInstances();
+            }
+
+            if (base.isAuthority) {
                 
                 if (stopwatch >= delay) {
                     stopwatch = 0f;
@@ -79,16 +81,16 @@ namespace ChaoticSkills.EntityStates.Engineer {
                     }
                 }
 
-                if (instanceOne) {
-                    instanceOne.transform.forward = base.GetAimRay().direction;
-                }
-                if (instanceTwo) {
-                    instanceTwo.transform.forward = base.GetAimRay().direction;
-                }
-
                 if (!base.inputBank.skill1.down) {
                     outer.SetNextStateToMain();
                 }
+            }
+
+            if (instanceOne) {
+                instanceOne.transform.forward = base.GetAimRay().direction;
+            }
+            if (instanceTwo) {
+                instanceTwo.transform.forward = base.GetAimRay().direction;
             }
         }
 

@@ -30,6 +30,8 @@ namespace ChaoticSkills.Content {
         public virtual UnlockableDef Unlock { get; } = null;
         public virtual bool AutoApply { get; } = true;
         public virtual bool MustKeyPress { get; } = false;
+        public virtual bool AgileAddKeyword { get; } = true;
+        public virtual bool SprintCancelable { get; } = true;
         public virtual bool Passive { get; } = false;
         public SkillDef SkillDef;
 
@@ -41,9 +43,14 @@ namespace ChaoticSkills.Content {
             SkillDef.baseRechargeInterval = Cooldown;
             SkillDef.baseMaxStock = MaxStock;
             SkillDef.activationState = ActivationState;
-            SkillDef.canceledFromSprinting = Passive ? false : !Agile;
+            SkillDef.cancelSprintingOnActivation = Passive ? false : !Agile;
             SkillDef.icon = SkillIcon;
-            SkillDef.cancelSprintingOnActivation = !Agile;
+            if (!SprintCancelable) {
+                SkillDef.canceledFromSprinting = false;
+            }
+            else {
+                SkillDef.canceledFromSprinting = !Agile;
+            }
             SkillDef.isCombatSkill = IsCombat;
             SkillDef.activationStateMachineName = Machine;
             SkillDef.beginSkillCooldownOnSkillEnd = DelayCooldown;
@@ -52,7 +59,7 @@ namespace ChaoticSkills.Content {
             SkillDef.mustKeyPress = MustKeyPress;
             List<string> newKeywords = Keywords;
 
-            if (Agile) {
+            if (Agile && AgileAddKeyword) {
                 newKeywords.Add(Utils.Keywords.Agile);
             }
             

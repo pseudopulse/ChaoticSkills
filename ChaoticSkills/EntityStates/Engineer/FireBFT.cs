@@ -3,7 +3,7 @@ using EntityStates.Merc.Weapon;
 
 namespace ChaoticSkills.EntityStates.Engineer {
     public class FireBFT : BaseState {
-        private float damageCoeff = 13567.5f * 0.01f;
+        private float damageCoeff = Content.Engineer.SBFT.DamageCoeff;
         private float procCoefficient = 3f;
         private float shotDelay = 5;
         private LineRenderer lr;
@@ -43,7 +43,7 @@ namespace ChaoticSkills.EntityStates.Engineer {
             }
             else {
                 AkSoundEngine.PostEvent(Events.Play_railgunner_R_fire, base.gameObject);
-                if (Physics.Raycast(ray.origin, ray.direction, out RaycastHit hit, Mathf.Infinity, LayerIndex.world.mask | LayerIndex.entityPrecise.mask)) {
+                if (Physics.Raycast(base.GetAimRay().origin, base.GetAimRay().direction, out RaycastHit hit, Mathf.Infinity, LayerIndex.world.mask | LayerIndex.entityPrecise.mask)) {
                     BlastAttack battack = new();
                     battack.baseDamage = base.damageStat * damageCoeff;
                     battack.radius = 10f;
