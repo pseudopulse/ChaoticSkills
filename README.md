@@ -15,6 +15,8 @@ Crash Remote (Utility) - Call down reinforcements from the UES Safe Travels, has
 ## Commando
 SFG-900 (Primary) - Stunning. Launch a slow-moving energy ball for 700% damage.
 
+Frost Grenade (Special) - Freezing. Toss a grenade that explodes in an icy blast. Does no damage, but freezes targets.
+
 ## Engineer
 TR-80 Sniper Turret (Special) - Place a turret that inherits all of your items. Fires a periodic burst of 3 piercing bolts for 700% per shot that slow. Can place up to 1.
 
@@ -29,11 +31,41 @@ Thermal Blast (Primary) - Agile. Ignite. Fire dual flamethrowers for 600% damage
 ## Mercenary
 Fluoresence (Secondary) - Agile. Tether enemies, dragging them towards you and repeatedly strike them for 15% damage. 50% slow on self when active.
 
+Momentum Capacitors (Passive) - Killing airborne enemies grants a stacking 10% boost to damage. All stacks reset upon touching the ground.
+
 ## Artificer
 Overcharged Jetpack (Passive) - Hold jump midair to fly. Flying drains fuel. Fuel passively regenerates over time. Running out of fuel will temporarily disable the jetpack.
 
-Fracture (Primary) - Charge up a tracking bomb for 100%-700% damage.
+Fracture (Primary) - Charge up a tracking bomb for 300%-960% damage.
+
+M1A2 SEPV3 Main Battle Tank (Utility) - Deploy a rideable M1A2 SEPV3 Main Battle Tank. Primary fire launches a rocket for 2500% damage.
+
+## Bandit
+Sadism (Passive) - Your attacks strike an additional time for each debuff on the target, dealing 50% TOTAL damage.
+
+## MUL-T
+Auto-Nailblast (Primary & Misc) - Fire a stream of shotgun blasts for 6x90% damage. 50% slow on self when active.
+
+## Huntress
+Destroyer (Special) - Charge up a piercing blade for 900%-3700% damage. Emits a stunning shockwave when fully charged. 50% slow on self when charging.
+
+## Acrid
+Pathosis (Passive) - Attacks that apply poison instead apply Pathosis. Targets afflicted with Pathosis share damage taken with the nearby afflicted. 7.5s duration
+
 # Changelog
+## 1.4.0
+- buffed fracture to be 300%-960%
+- improved homing on fracture
+- added Momentum Capacitors as an alternate passive for merc
+- added Sadism as an alternate passive for bandit
+- added Frost Grenade as an alternate special for commando
+- added Destroyer as an alternate special for huntress
+- added Auto-Nailblast as an alternate primary & misc for MUL-T
+- added Pathosis as an alternate passive for acrid
+- added M1A2 SEPV3 Main Battle Tank as an alternate utility for artificer
+- fixed the engineer turrets killing every single ally on spawn
+- new bft visuals (made by violet)
+- fixed overdrive boost not giving impact damage and fall immunity
 ## 1.3.0
 - added config for BFT-9000 damage
 - made the PM-30 support turret not break when frozen

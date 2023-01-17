@@ -19,10 +19,10 @@ namespace ChaoticSkills.EntityStates.Engineer {
         public override void OnExit()
         {
             base.OnExit();
-            On.RoR2.GlobalEventManager.OnCharacterHitGround -= Impact;
+            On.RoR2.GlobalEventManager.OnCharacterHitGroundServer -= Impact;
         }
 
-        private void Impact(On.RoR2.GlobalEventManager.orig_OnCharacterHitGround orig, GlobalEventManager self, CharacterBody body, Vector3 impactVelocity) {
+        private void Impact(On.RoR2.GlobalEventManager.orig_OnCharacterHitGroundServer orig, GlobalEventManager self, CharacterBody body, Vector3 impactVelocity) {
             if (body == base.characterBody) {
                 orig(self, body, Vector3.zero);
                 float damageCoeff = Mathf.Clamp(1f + (Mathf.Abs(impactVelocity.y * 5) * 0.3f), 1f, 25f);
@@ -44,6 +44,7 @@ namespace ChaoticSkills.EntityStates.Engineer {
                 attack.attacker = base.gameObject;
 
                 if (base.isAuthority) {
+                    // Debug.Log("firing attack");
                     attack.Fire();
                 }
 
@@ -58,6 +59,7 @@ namespace ChaoticSkills.EntityStates.Engineer {
                 outer.SetNextStateToMain();
             }
             else {
+                // Debug.Log("impact wasnt us");
                 orig(self, body, impactVelocity);
             }
         }
@@ -66,7 +68,8 @@ namespace ChaoticSkills.EntityStates.Engineer {
         {
             base.FixedUpdate();
             if (base.fixedAge >= upwardDelay && !hasThrusted) {
-                On.RoR2.GlobalEventManager.OnCharacterHitGround += Impact;
+                // Debug.Log("thrusting");
+                On.RoR2.GlobalEventManager.OnCharacterHitGroundServer += Impact;
                 hasThrusted = true;
                 base.characterMotor.velocity = Vector3.zero;
                 base.characterMotor.ApplyForce((base.GetAimRay().direction) * forwardForce, true);

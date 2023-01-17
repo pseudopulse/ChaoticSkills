@@ -37,6 +37,9 @@ namespace ChaoticSkills {
 
             // hopoo why
             Misc.RealPassives.Hook();
+            // slightly less hopoo why
+            // Misc.Selectables.Hooks();
+            Misc.AllyCaps.Hooks();
         }
     }
 }

@@ -3432,7 +3432,7 @@ namespace ChaoticSkills.Utils.Paths {
             public static string BlightEffect = "RoR2/Base/Croco/BlightEffect.prefab";
             public static string crocoprops = "RoR2/Base/Croco/croco props.fbx";
             public static string CrocoBiteEffect = "RoR2/Base/Croco/CrocoBiteEffect.prefab";
-            public static string CrocoBody33 = "RoR2/Base/Croco/CrocoBody.prefab";
+            public static string CrocoBody = "RoR2/Base/Croco/CrocoBody.prefab";
             public static string CrocoChainableFistEffect = "RoR2/Base/Croco/CrocoChainableFistEffect.prefab";
             public static string CrocoComboFinisherSlash = "RoR2/Base/Croco/CrocoComboFinisherSlash.prefab";
             public static string CrocoCrosshair = "RoR2/Base/Croco/CrocoCrosshair.prefab";

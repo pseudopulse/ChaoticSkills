@@ -25,5 +25,9 @@ namespace ChaoticSkills.Utils {
                 return list[rng.RangeInt(0, list.Count)];
             }
         }
+
+        public static void AddComponent<T>(this Component self) where T : Component {
+            self.gameObject.AddComponent<T>();
+        }
     }
 }

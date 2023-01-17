@@ -5,41 +5,41 @@ namespace ChaoticSkills.EntityStates.Engineer {
     public class FireBFT : BaseState {
         private float damageCoeff = Content.Engineer.SBFT.DamageCoeff;
         private float procCoefficient = 3f;
-        private float shotDelay = 5;
-        private LineRenderer lr;
-        private GameObject lasr;
+        private float shotDelay = 4;
         private Ray ray;
+        private GameObject instance;
 
         public override void OnEnter()
         {
             base.OnEnter();
-            lasr = GameObject.Instantiate(Utils.Paths.GameObject.LaserGolem.Load<GameObject>(), base.FindModelChild("Muzzle"));
-            lr = lasr.GetComponent<LineRenderer>();
-            lr.startColor = Color.green;
-            lr.endColor = Color.green;
-            lr.startWidth = 3f;
-            lr.endWidth = 3f;
-            lr.SetPosition(0, base.FindModelChild("Muzzle").position);
-            ray = new Ray {
-                origin = base.FindModelChild("Muzzle").position,
-                direction = base.FindModelChild("Barrel").forward
-            };
+            instance = GameObject.Instantiate(Main.Assets.LoadAsset<GameObject>("Assets/Prefabs/Engineer/BFT/BFTModel/railgun.prefab"), FindModelChild("VFXPoint"));
+            GetModelAnimator().enabled = false;
         }
 
         public override void OnExit()
         {
             base.OnExit();
-            Destroy(lasr);
+            Destroy(instance);
+            GetModelAnimator().enabled = true;
         }
 
         public override void FixedUpdate()
         {
             base.FixedUpdate();
             if (base.fixedAge <= shotDelay) {
-                lr.SetPosition(0, base.FindModelChild("Muzzle").position);
-                lr.SetPosition(1, ray.GetPoint(1000));
-                lr.startWidth -= 0.5f * Time.fixedDeltaTime;
-                lr.endWidth -= 0.5f * Time.fixedDeltaTime;
+                Transform rotateobj = base.FindModelChild("RotateObject");
+                if (base.characterBody.master && base.characterBody.master.GetComponent<BaseAI>()) {
+                    BaseAI ai = base.characterBody.master.GetComponent<BaseAI>();
+                    if (ai.currentEnemy.gameObject && ai.currentEnemy.GetBullseyePosition(out Vector3 pos)) {
+                        rotateobj.position = pos;
+                    }
+                    else {
+                        rotateobj.position = base.GetAimRay().GetPoint(100);
+                    }
+                }
+                else {
+                    rotateobj.position = base.GetAimRay().GetPoint(100);
+                }
             }
             else {
                 AkSoundEngine.PostEvent(Events.Play_railgunner_R_fire, base.gameObject);
@@ -60,14 +60,14 @@ namespace ChaoticSkills.EntityStates.Engineer {
                         origin = hit.point,
                         scale = 3
                     }, true);
+
+                    GetModelAnimator().enabled = true;
+
+                    base.PlayAnimation("Base Layer", "Armature_Firing");
                 }
 
                 outer.SetNextStateToMain();
             }
-            Vector3 targetRotation = base.GetAimRay().direction;
-            targetRotation.x = Mathf.Clamp(targetRotation.x, -70, 70);
-            ray.direction = base.FindModelChild("Barrel").forward;
-            base.FindModelChild("Barrel").forward = Vector3.Lerp(ray.direction, targetRotation, 40 * Time.fixedDeltaTime);
         }
 
         public override InterruptPriority GetMinimumInterruptPriority()

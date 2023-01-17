@@ -1,4 +1,5 @@
 using System;
+using ChaoticSkills.Misc;
 
 namespace ChaoticSkills.Content {
     public abstract class SkillBase<T> : SkillBase where T : SkillBase<T>
@@ -33,8 +34,10 @@ namespace ChaoticSkills.Content {
         public virtual bool AgileAddKeyword { get; } = true;
         public virtual bool SprintCancelable { get; } = true;
         public virtual bool Passive { get; } = false;
+        /*public virtual bool MiscSelectable { get; } = false;
+        public virtual string MiscSelectableName { get; } = null;*/
         public SkillDef SkillDef;
-
+        public static EventHandler PostCreationEvent;
         public void Init() {
             SkillDef = ScriptableObject.CreateInstance<SkillDef>();
             SkillDef.skillNameToken = "SKILL_" + LangToken + "_NAME";
@@ -72,7 +75,7 @@ namespace ChaoticSkills.Content {
                 bool wasPassiveReal = false;
 
                 foreach (GenericSkill skill in survivor.GetComponents<GenericSkill>()) {
-                    if (skill.skillName.ToLower().Contains("passive") || (skill.skillFamily as ScriptableObject).name.ToLower().Contains("passive")) {
+                    if (skill.skillName != null && skill.skillName.ToLower().Contains("passive") || (skill.skillFamily as ScriptableObject).name != null && (skill.skillFamily as ScriptableObject).name.ToLower().Contains("passive")) {
                         SkillFamily family = skill.skillFamily;
 
                         Array.Resize(ref family.variants, family.variants.Length + 1);
@@ -155,9 +158,24 @@ namespace ChaoticSkills.Content {
                 }
             }
 
+            /*if (MiscSelectable && MiscSelectableName != null) {
+                GameObject surv = Survivor.Load<GameObject>();
+                GenericSkill skill = surv.AddComponent<GenericSkill>();
+                skill.hideFlags = HideFlags.DontSave;
+                skill.hideInCharacterSelect = true;
+                skill.skillName = Selectables.Prefix + MiscSelectableName;
+                SkillFamily family = ScriptableObject.CreateInstance<SkillFamily>();
+                (family as ScriptableObject).name = surv.name + "Misc";
+                family.variants = null;
+
+                skill._skillFamily = family;
+
+                SkillDef.skillName = Selectables.Prefix + MiscSelectableName;
+            }*/
+
             SkillDef.skillNameToken.Add(Name);
             string tempDesc = Description;
-            if (Agile) {
+            if (Agile && AgileAddKeyword) {
                 tempDesc = "<style=cIsUtility>Agile.</style> " + tempDesc;
             }
             SkillDef.skillDescriptionToken.Add(tempDesc);
@@ -168,7 +186,7 @@ namespace ChaoticSkills.Content {
         }
 
         public virtual void PostCreation() {
-
+            PostCreationEvent?.Invoke(this, new());
         }
     }
 }
