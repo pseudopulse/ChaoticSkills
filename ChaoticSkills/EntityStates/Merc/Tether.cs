@@ -58,6 +58,7 @@ namespace ChaoticSkills.EntityStates.Merc {
                         }
 
                         if (NetworkServer.active) {
+                            Debug.Log("dealing damage");
                             DamageInfo info = new();
                             info.attacker = base.gameObject;
                             info.force = (base.transform.position - box.transform.position).normalized * 500;
@@ -79,6 +80,7 @@ namespace ChaoticSkills.EntityStates.Merc {
                 }
 
                 if (!inputBank.skill2.down) {
+                    Debug.Log("ending skill");
                     outer.SetNextStateToMain();
                 }
             }

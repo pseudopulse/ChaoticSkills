@@ -25,6 +25,8 @@ namespace ChaoticSkills.Content.Huntress {
         {
             DestroyerProjectile = Main.Assets.LoadAsset<GameObject>("Assets/Prefabs/Huntress/Destroyer/Destroyer.prefab");
             DestroyerProjectile.AddComponent<DestroyerCharge>();
+
+            PrefabAPI.RegisterNetworkPrefab(DestroyerProjectile);
             ContentAddition.AddProjectile(DestroyerProjectile);
         }
 

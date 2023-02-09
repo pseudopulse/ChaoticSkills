@@ -81,7 +81,7 @@ namespace ChaoticSkills.Content.Captain {
                 public AttackType type;
             }
             private void Start() {
-                if (NetworkServer.active) {
+                if (true) { // useless check but im too lazy to un-indent this
                     microbots = new();
 
                     for (int i = 0; i < 3; i++) {
@@ -115,7 +115,7 @@ namespace ChaoticSkills.Content.Captain {
             }
 
             private void FixedUpdate() {
-                if (NetworkServer.active) {
+                if (true) { // ditto
                     stopwatch += Time.fixedDeltaTime;
                     if (stopwatch >= 1.3f) {
                         stopwatch = 0f;
@@ -173,14 +173,18 @@ namespace ChaoticSkills.Content.Captain {
                         battack.procCoefficient = 0f;
                         battack.teamIndex = TeamIndex.Monster;
 
-                        battack.Fire();
+                        if (NetworkServer.active) {
+                            battack.Fire();
+                        }
                         EffectManager.SpawnEffect(Utils.Paths.GameObject.ExplosionGolem.Load<GameObject>(), new EffectData {
                             origin = hit.point,
                             scale = 3
                         }, true);
                     }
  
-                    attack.Fire();
+                    if (NetworkServer.active) {
+                        attack.Fire();
+                    }
                 }
                 AkSoundEngine.PostEvent(Events.Play_captain_drone_zap, self.gameObject);
             }
@@ -228,21 +232,25 @@ namespace ChaoticSkills.Content.Captain {
                                 battack.procCoefficient = 0f;
                                 battack.teamIndex = TeamIndex.Monster;
 
-                                battack.Fire();
+                                if (NetworkServer.active) {
+                                    battack.Fire();
+                                }
                                 EffectManager.SpawnEffect(Utils.Paths.GameObject.ExplosionGolem.Load<GameObject>(), new EffectData {
                                     origin = hit.point,
                                     scale = 3
                                 }, true);
                             }
         
-                            attack.Fire();
+                            if (NetworkServer.active) {
+                                attack.Fire();
+                            }
                         }
                     }
                 }
             }
 
             private void OnDestroy() {
-                if (NetworkServer.active) {
+                if (true) {
                     foreach (Microbot bot in microbots) {
                         GameObject.DestroyImmediate(bot.microbot);
                     }

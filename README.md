@@ -62,6 +62,8 @@ Pathosis (Passive) - Attacks that apply poison instead apply Pathosis. Targets a
 - added Spark Cannon as an alternate primary for captain
 - added Barrage as an alternate secondary for commando
 - upped fracture damage to 1100% max and removed homing
+- added Constructor Pylon as an alternate special for the engineer
+- added enable/disable configs for skills
 ## 1.4.0
 - buffed fracture to be 300%-960%
 - improved homing on fracture

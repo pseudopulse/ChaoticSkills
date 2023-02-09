@@ -22,7 +22,8 @@ namespace ChaoticSkills.EntityStates.Engineer {
         public override void FixedUpdate()
         {
             base.FixedUpdate();
-            if (base.isAuthority && ai) {
+            if (ai) {
+                Debug.Log("calling updatehealbeam");
                 UpdateHealBeam();
             }
         }
@@ -36,13 +37,15 @@ namespace ChaoticSkills.EntityStates.Engineer {
                 }
             }
             if (target && Vector3.Distance(base.transform.position, target.body.transform.position) < 25) {
+                Debug.Log("target and in range");
                 if (healBeamInstance != null) {
-                    if (isUbercharged) {
+                    if (isUbercharged && base.isAuthority) {
                         ai.leader.characterBody.AddTimedBuff(RoR2Content.Buffs.FullCrit, durationOfUber, 1);
                         ai.leader.characterBody.AddTimedBuff(RoR2Content.Buffs.Immune, durationOfUber, 1);
                     }
                     else {
                         uber += 1.5f * Time.fixedDeltaTime;
+                        Debug.Log("adding uber");
                     }
 
                     if (uber >= maxUber) {
@@ -55,8 +58,10 @@ namespace ChaoticSkills.EntityStates.Engineer {
                     HealBeamController controller = healBeamInstance.GetComponent<HealBeamController>();
                     controller.startPointTransform.parent = base.FindModelChild("Muzzle");
                     controller.startPointTransform.position = base.FindModelChild("Muzzle").position;
+                    Debug.Log("updating beam");
                 }
                 else {
+                    Debug.Log("creating beam");
                     healBeamInstance = GameObject.Instantiate(healBeamPrefab, base.FindModelChild("Muzzle"));
                     HealBeamController controller = healBeamInstance.GetComponent<HealBeamController>();
                     controller.healRate = base.damageStat * 0.7f;
@@ -68,12 +73,15 @@ namespace ChaoticSkills.EntityStates.Engineer {
             else {
                 if (healBeamInstance != null) {
                     Destroy(healBeamInstance);
+                    Debug.Log("destroying beam no target");
                 }
             }
 
             if (isUbercharged) {
                 uber -= 12.5f * Time.fixedDeltaTime;
-                base.characterBody.AddTimedBuff(RoR2Content.Buffs.Immune, durationOfUber, 1);
+                if (base.isAuthority) {
+                    base.characterBody.AddTimedBuff(RoR2Content.Buffs.Immune, durationOfUber, 1);
+                }
             }
             if (uber <= 1) {
                 uber = 1.1f;

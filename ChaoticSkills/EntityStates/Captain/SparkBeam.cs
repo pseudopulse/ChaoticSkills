@@ -60,7 +60,6 @@ namespace ChaoticSkills.EntityStates.Captain {
                 attack.stopperMask = LayerIndex.world.collisionMask;
 
                 attack.Fire();
-                AkSoundEngine.PostEvent(Events.Play_loader_R_shock, base.gameObject);
             }
         }
 

@@ -47,7 +47,8 @@ namespace ChaoticSkills.Content.Engineer {
             };
 
             locator.primary.skillFamily.variants[0] = variant;
-
+            
+            PrefabAPI.RegisterNetworkPrefab(ConstructorTurretBody);
             ContentAddition.AddBody(ConstructorTurretBody);
             ContentAddition.AddMaster(ConstructorTurretMaster);
 

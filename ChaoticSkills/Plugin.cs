@@ -48,6 +48,9 @@ namespace ChaoticSkills {
             // Misc.Selectables.Hooks();
             Misc.AllyCaps.Hooks();
             Misc.VoidSurvivorAlts.Hooks();
+
+            // local networking hook dont put this in release ever
+            On.RoR2.Networking.NetworkManagerSystemSteam.OnClientConnect += (s, u, t) => { };
         }
     }
 }

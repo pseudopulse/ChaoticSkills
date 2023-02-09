@@ -46,6 +46,8 @@ namespace ChaoticSkills.Content.Commando {
 
             MissileProjectile.GetComponent<ProjectileDamage>().damageType = DamageType.Stun1s;
 
+            PrefabAPI.RegisterNetworkPrefab(MissileProjectile);
+
             ContentAddition.AddProjectile(MissileProjectile);
 
             On.RoR2.CharacterBody.Start += (orig, self) => {

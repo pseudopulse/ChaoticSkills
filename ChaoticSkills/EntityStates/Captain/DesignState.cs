@@ -14,7 +14,7 @@ namespace ChaoticSkills.EntityStates.Captain {
         public override void FixedUpdate()
         {
             base.FixedUpdate();
-            if (NetworkServer.active) {
+            if (true) { // useless check but im too lazy to unindent this
                 stopwatch += Time.fixedDeltaTime;
 
                 if (stopwatch >= delay) {
@@ -31,7 +31,9 @@ namespace ChaoticSkills.EntityStates.Captain {
                     attack.baseForce = force;
                     attack.procCoefficient = 0f;
 
-                    attack.Fire();
+                    if (NetworkServer.active) {
+                        attack.Fire();
+                    }
 
                     AkSoundEngine.PostEvent(Events.Play_moonBrother_orb_slam_impact, base.gameObject);
                 }

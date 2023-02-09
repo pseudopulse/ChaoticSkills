@@ -90,7 +90,6 @@ namespace ChaoticSkills.Content.Engineer {
                     text = text + $" ({Mathf.RoundToInt(state.uber)}%)";
                     self.nameLabel.text = text;
                 }
-
             }
         }
     }

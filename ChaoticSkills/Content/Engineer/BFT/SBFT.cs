@@ -57,7 +57,7 @@ namespace ChaoticSkills.Content.Engineer {
 
             BFTMaster.GetComponent<CharacterMaster>().bodyPrefab = BFTBody;
 
-
+            PrefabAPI.RegisterNetworkPrefab(BFTBody);
             ContentAddition.AddBody(BFTBody);
             ContentAddition.AddMaster(BFTMaster);
 
