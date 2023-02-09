@@ -48,10 +48,6 @@ namespace ChaoticSkills {
             // Misc.Selectables.Hooks();
             Misc.AllyCaps.Hooks();
             Misc.VoidSurvivorAlts.Hooks();
-
-            Utils.Paths.SurvivorDef.Treebot.Load<SurvivorDef>().displayNameToken = "Evil REX";
-            Utils.Paths.SurvivorDef.Treebot.Load<SurvivorDef>().descriptionToken = "Evil REX";
-            Utils.Paths.SurvivorDef.Treebot.Load<SurvivorDef>().displayPrefab = Utils.Paths.GameObject.PickupShieldBug.Load<GameObject>();
         }
     }
 }
