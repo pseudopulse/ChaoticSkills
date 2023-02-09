@@ -1,12 +1,12 @@
 ManifestFileVersion: 0
-CRC: 2341654257
+CRC: 1022139085
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: bef618d62269edac4adebd48fbb74075
+    Hash: d10ae11f4b6d281325163fbade83e467
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 7ea2e24a21a30fdc1ce396325db9c4c7
+    Hash: 868a9c80451bb1b6650a7dfa43bed891
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -44,21 +44,33 @@ ClassTypes:
 - Class: 111
   Script: {instanceID: 0}
 - Class: 114
+  Script: {fileID: 372142912, guid: d382a022563c7517aadbc92ca1060016, type: 3}
+- Class: 114
   Script: {fileID: 105922711, guid: 951ce57ad999ac1f040a4dceb5f8b763, type: 3}
+- Class: 114
+  Script: {fileID: 678291247, guid: 951ce57ad999ac1f040a4dceb5f8b763, type: 3}
 - Class: 114
   Script: {fileID: 1790887305, guid: 951ce57ad999ac1f040a4dceb5f8b763, type: 3}
 - Class: 114
-  Script: {fileID: 372142912, guid: d382a022563c7517aadbc92ca1060016, type: 3}
-- Class: 114
   Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
 - Class: 114
-  Script: {fileID: 678291247, guid: 951ce57ad999ac1f040a4dceb5f8b763, type: 3}
+  Script: {fileID: -2005973111, guid: 951ce57ad999ac1f040a4dceb5f8b763, type: 3}
+- Class: 114
+  Script: {fileID: -1811796171, guid: 951ce57ad999ac1f040a4dceb5f8b763, type: 3}
+- Class: 114
+  Script: {fileID: -2119659324, guid: 951ce57ad999ac1f040a4dceb5f8b763, type: 3}
+- Class: 114
+  Script: {fileID: 1357070253, guid: 951ce57ad999ac1f040a4dceb5f8b763, type: 3}
 - Class: 114
   Script: {fileID: -1067940895, guid: 951ce57ad999ac1f040a4dceb5f8b763, type: 3}
 - Class: 114
   Script: {fileID: -197296741, guid: 951ce57ad999ac1f040a4dceb5f8b763, type: 3}
 - Class: 114
+  Script: {fileID: 953270592, guid: 951ce57ad999ac1f040a4dceb5f8b763, type: 3}
+- Class: 114
   Script: {fileID: -1277448904, guid: 951ce57ad999ac1f040a4dceb5f8b763, type: 3}
+- Class: 114
+  Script: {fileID: -2096938146, guid: 951ce57ad999ac1f040a4dceb5f8b763, type: 3}
 - Class: 114
   Script: {fileID: 1143142494, guid: 951ce57ad999ac1f040a4dceb5f8b763, type: 3}
 - Class: 114
@@ -88,7 +100,11 @@ ClassTypes:
 - Class: 114
   Script: {fileID: 1512185436, guid: 951ce57ad999ac1f040a4dceb5f8b763, type: 3}
 - Class: 114
+  Script: {fileID: 682687671, guid: 951ce57ad999ac1f040a4dceb5f8b763, type: 3}
+- Class: 114
   Script: {fileID: -1888550019, guid: 951ce57ad999ac1f040a4dceb5f8b763, type: 3}
+- Class: 114
+  Script: {fileID: -1578512655, guid: 951ce57ad999ac1f040a4dceb5f8b763, type: 3}
 - Class: 114
   Script: {fileID: -1699741063, guid: 951ce57ad999ac1f040a4dceb5f8b763, type: 3}
 - Class: 114
@@ -96,18 +112,28 @@ ClassTypes:
 - Class: 114
   Script: {fileID: -1848696948, guid: 951ce57ad999ac1f040a4dceb5f8b763, type: 3}
 - Class: 114
+  Script: {fileID: 353067543, guid: 951ce57ad999ac1f040a4dceb5f8b763, type: 3}
+- Class: 114
   Script: {fileID: -899414464, guid: 951ce57ad999ac1f040a4dceb5f8b763, type: 3}
 - Class: 114
   Script: {fileID: -1819008361, guid: 951ce57ad999ac1f040a4dceb5f8b763, type: 3}
+- Class: 114
+  Script: {fileID: -789927658, guid: 951ce57ad999ac1f040a4dceb5f8b763, type: 3}
 - Class: 114
   Script: {fileID: -1627637702, guid: 951ce57ad999ac1f040a4dceb5f8b763, type: 3}
 - Class: 114
   Script: {fileID: 306635731, guid: 951ce57ad999ac1f040a4dceb5f8b763, type: 3}
 - Class: 114
+  Script: {fileID: -884249655, guid: 951ce57ad999ac1f040a4dceb5f8b763, type: 3}
+- Class: 114
   Script: {fileID: -315171339, guid: 951ce57ad999ac1f040a4dceb5f8b763, type: 3}
 - Class: 114
   Script: {fileID: -1895344032, guid: 951ce57ad999ac1f040a4dceb5f8b763, type: 3}
+- Class: 114
+  Script: {fileID: 1395413934, guid: da77c7bbf69f66ab2145560542327715, type: 3}
 - Class: 115
+  Script: {instanceID: 0}
+- Class: 135
   Script: {instanceID: 0}
 - Class: 136
   Script: {instanceID: 0}
@@ -131,14 +157,19 @@ ClassTypes:
   Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers: []
 Assets:
+- Assets/Prefabs/Engineer/Constructor/ConstructorMaster.prefab
+- Assets/Prefabs/Loader/PortalPrefabs/PortalYellow.prefab
 - Assets/Prefabs/Engineer/BFT/BFTModel/railgun.prefab
+- Assets/Prefabs/Captain/Spark/SparkPrefab.prefab
 - Assets/Icons/Acrid/PathosisDebuff.png
 - Assets/Icons/Merc/AirBonus.png
-- Assets/Icons/Captain/VoidGaze.png
 - Assets/Icons/Commando/SFG.png
 - Assets/Prefabs/Huntress/Destroyer/Destroyer.prefab
 - Assets/Icons/Engineer/Medic.png
+- Assets/Icons/Commando/LockOn.png
 - Assets/Icons/MUL-T/AutoNailblast.png
+- Assets/Prefabs/Engineer/Constructor/ConstructorBody.prefab
+- Assets/Prefabs/Viend/Watcher/Watcher.prefab
 - Assets/Icons/Engineer/BFT.png
 - Assets/Icons/Engineer/Flamethrower.png
 - Assets/Icons/Merc/Tether.png
@@ -146,11 +177,17 @@ Assets:
 - Assets/Icons/Acrid/Pathosis.png
 - Assets/Icons/Commando/FrostGrenade.png
 - Assets/Icons/Captain/Void.png
+- Assets/Prefabs/Engineer/Constructor/vfx/matConstruction.mat
 - Assets/Icons/Artificer/Tank.png
 - Assets/Icons/Captain/Crash.png
 - Assets/Icons/Engineer/Thruster.png
+- Assets/Icons/Captain/Spark.png
 - Assets/Icons/Bandit/Sadism.png
+- Assets/Prefabs/Viend/WatcherVoid/WatcherVoid.prefab
 - Assets/Icons/Captain/OffensiveMicrobots.png
+- Assets/Prefabs/Loader/PortalBlueProjectile.prefab
+- Assets/Prefabs/Loader/PortalPrefabs/PortalBlue.prefab
+- Assets/Icons/Engineer/Constructor.png
 - Assets/Icons/Engineer/Sniper.png
 - Assets/Prefabs/Artificer/Jetpack/FuelIndicator.prefab
 - Assets/Icons/Captain/Design.png
@@ -158,5 +195,6 @@ Assets:
 - Assets/Icons/Huntress/Destroyer.png
 - Assets/Prefabs/Engineer/BFT/BFTBody.prefab
 - Assets/Prefabs/Artificer/Tank/Tank.prefab
+- Assets/Prefabs/Loader/PortalYellowProjectile.prefab
 - Assets/Icons/Artificer/Jetpack.png
 Dependencies: []

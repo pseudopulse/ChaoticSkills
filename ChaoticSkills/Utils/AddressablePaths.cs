@@ -3762,7 +3762,7 @@ namespace ChaoticSkills.Utils.Paths {
             public static string loaderfist = "RoR2/Base/Loader/loader fist.fbx";
             public static string loaderpylon = "RoR2/Base/Loader/loader pylon.fbx";
             public static string loaderspikedfist = "RoR2/Base/Loader/loader spiked fist.fbx";
-            public static string LoaderBody29 = "RoR2/Base/Loader/LoaderBody.prefab";
+            public static string LoaderBody = "RoR2/Base/Loader/LoaderBody.prefab";
             public static string mdlLoaderClassic = "RoR2/Base/Loader/mdlLoaderClassic.fbx";
             public static string LoaderCrosshair = "RoR2/Base/Loader/LoaderCrosshair.prefab";
             public static string LoaderDisplay = "RoR2/Base/Loader/LoaderDisplay.prefab";

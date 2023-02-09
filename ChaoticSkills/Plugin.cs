@@ -13,7 +13,7 @@ namespace ChaoticSkills {
         public const string PluginGUID = PluginAuthor + "." + PluginName;
         public const string PluginAuthor = "pseudopulse";
         public const string PluginName = "ChaoticSkills";
-        public const string PluginVersion = "1.0.0";
+        public const string PluginVersion = "1.4.0";
         public static BepInEx.Logging.ManualLogSource ModLogger;
         public static AssetBundle Assets;
         public static ConfigFile config;
@@ -35,11 +35,23 @@ namespace ChaoticSkills {
                 skillBase.Init();
             }
 
+            // hopoo shadrs
+            foreach (Material mat in Assets.LoadAllAssets<Material>()) {
+                if (mat.shader.name.Contains("Standard")) {
+                    mat.shader = Utils.Paths.Shader.HGStandard.Load<Shader>();
+                }
+            }
+
             // hopoo why
             Misc.RealPassives.Hook();
             // slightly less hopoo why
             // Misc.Selectables.Hooks();
             Misc.AllyCaps.Hooks();
+            Misc.VoidSurvivorAlts.Hooks();
+
+            Utils.Paths.SurvivorDef.Treebot.Load<SurvivorDef>().displayNameToken = "Evil REX";
+            Utils.Paths.SurvivorDef.Treebot.Load<SurvivorDef>().descriptionToken = "Evil REX";
+            Utils.Paths.SurvivorDef.Treebot.Load<SurvivorDef>().displayPrefab = Utils.Paths.GameObject.PickupShieldBug.Load<GameObject>();
         }
     }
 }

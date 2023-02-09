@@ -1,0 +1,2 @@
+* ??? - Ignite. Cast a firey explosion onto a targeted enemy for 900% damage. (artificer)
+* ??? - Slash forward, dealing 320% damage in an area. Projectiles in the area are reflected back.  (mercenary)

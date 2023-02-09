@@ -28,12 +28,13 @@ namespace ChaoticSkills.Content.Commando {
            
            ProjectileImpactExplosion explosion = IceGrenadeProjectile.GetComponent<ProjectileImpactExplosion>();
            explosion.blastDamageCoefficient = 0f;
-           explosion.blastRadius = 6f;
+           explosion.blastRadius = 14f;
            explosion.impactEffect = ExplosionVFX;
            explosion.impactOnWorld = true;
            explosion.timerAfterImpact = false;
            explosion.destroyOnEnemy = true;
            explosion.destroyOnWorld = true;
+           explosion.blastProcCoefficient = 1f;
 
            IceGrenadeProjectile.layer = LayerIndex.projectile.intVal;
 

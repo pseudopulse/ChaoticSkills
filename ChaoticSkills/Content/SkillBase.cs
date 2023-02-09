@@ -39,6 +39,10 @@ namespace ChaoticSkills.Content {
         public SkillDef SkillDef;
         public static EventHandler PostCreationEvent;
         public void Init() {
+            if (AutoApply && !Main.config.Bind<bool>("Skills", Name.Filter(), true, "Enable this skill?").Value) {
+                return;
+            }
+
             SkillDef = ScriptableObject.CreateInstance<SkillDef>();
             SkillDef.skillNameToken = "SKILL_" + LangToken + "_NAME";
             SkillDef.skillDescriptionToken = "SKILL_" + LangToken + "_DESC";
@@ -60,6 +64,7 @@ namespace ChaoticSkills.Content {
             SkillDef.stockToConsume = StockToConsume;
             SkillDef.requiredStock = Passive ? 321 : 1;
             SkillDef.mustKeyPress = MustKeyPress;
+            (SkillDef as ScriptableObject).name = LangToken;
             List<string> newKeywords = Keywords;
 
             if (Agile && AgileAddKeyword) {

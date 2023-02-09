@@ -8,7 +8,7 @@ Beacon: Void (Misc) - Vo??id Fo??g slowly damages enemies within the radius.
 
 Offensive Microbots (Passive) - Gain 3 combatant microbots that fire slowing lasers at nearby enemies for 160% damage, and one alongside you for 360% damage
 
-Gaze of the Void (Primary) - Charge up and fire a devastating blast of slowing v??oid sp??ikes for 12x100% damage.
+Spark Cannon (Primary) - Channel an electric beam for 340% damage. Deals critical hits after 3 seconds.
 
 Crash Remote (Utility) - Call down reinforcements from the UES Safe Travels, has a long cooldown.
 
@@ -16,6 +16,8 @@ Crash Remote (Utility) - Call down reinforcements from the UES Safe Travels, has
 SFG-900 (Primary) - Stunning. Launch a slow-moving energy ball for 700% damage.
 
 Frost Grenade (Special) - Freezing. Toss a grenade that explodes in an icy blast. Does no damage, but freezes targets.
+
+Barrage (Secondary) - Stunning. Fire 3 targeted rockets for 400% damage.
 
 ## Engineer
 TR-80 Sniper Turret (Special) - Place a turret that inherits all of your items. Fires a periodic burst of 3 piercing bolts for 700% per shot that slow. Can place up to 1.
@@ -28,6 +30,8 @@ Overdrive Boost (Utility) - Agile. Stunning. Launch into the air and boost forwa
 
 Thermal Blast (Primary) - Agile. Ignite. Fire dual flamethrowers for 600% damage.
 
+Constructor Pylon (Special) - Place a stationary device that produces clones of it's targets periodically. Clones inherit your items.
+
 ## Mercenary
 Fluoresence (Secondary) - Agile. Tether enemies, dragging them towards you and repeatedly strike them for 15% damage. 50% slow on self when active.
 
@@ -36,7 +40,7 @@ Momentum Capacitors (Passive) - Killing airborne enemies grants a stacking 10% b
 ## Artificer
 Overcharged Jetpack (Passive) - Hold jump midair to fly. Flying drains fuel. Fuel passively regenerates over time. Running out of fuel will temporarily disable the jetpack.
 
-Fracture (Primary) - Charge up a tracking bomb for 300%-960% damage.
+Fracture (Primary) - Charge up a lunar bolt for 300%-1100% damage.
 
 M1A2 SEPV3 Main Battle Tank (Utility) - Deploy a rideable M1A2 SEPV3 Main Battle Tank. Primary fire launches a rocket for 2500% damage.
 
@@ -53,6 +57,11 @@ Destroyer (Special) - Charge up a piercing blade for 900%-3700% damage. Emits a 
 Pathosis (Passive) - Attacks that apply poison instead apply Pathosis. Targets afflicted with Pathosis share damage taken with the nearby afflicted. 7.5s duration
 
 # Changelog
+## 1.5.0
+- removed gaze of the void
+- added Spark Cannon as an alternate primary for captain
+- added Barrage as an alternate secondary for commando
+- upped fracture damage to 1100% max and removed homing
 ## 1.4.0
 - buffed fracture to be 300%-960%
 - improved homing on fracture

@@ -3,9 +3,9 @@ using System;
 namespace ChaoticSkills.Content.Artificer {
     public class Shards : SkillBase<Shards> {
         public override SerializableEntityStateType ActivationState => ContentAddition.AddEntityState<EntityStates.Artificer.ChargeShards>(out bool _);
-        public override float Cooldown => 3.5f;
+        public override float Cooldown => 3f;
         public override bool DelayCooldown => true;
-        public override string Description => "Charge up a <style=cIsUtility>tracking bomb</style> for <style=cIsDamage>300%-960% damage</style>.";
+        public override string Description => "Charge up a <style=cIsUtility>lunar bolt</style> for <style=cIsDamage>300%-1100% damage</style>.";
         public override bool Agile => true;
         public override bool IsCombat => true;
         public override string LangToken => "Shards";
@@ -23,10 +23,7 @@ namespace ChaoticSkills.Content.Artificer {
         {
             base.PostCreation();
             prefab = PrefabAPI.InstantiateClone(Utils.Paths.GameObject.LunarWispTrackingBomb.Load<GameObject>(), "MageShard");
-            prefab.GetComponent<ProjectileSteerTowardTarget>().rotationSpeed = 90;
-            prefab.GetComponent<ProjectileDirectionalTargetFinder>().lookCone = 360;
-            prefab.GetComponent<ProjectileDirectionalTargetFinder>().lookRange = 20;
-            prefab.GetComponent<ProjectileController>().startSound = "";
+            prefab.RemoveComponent<ProjectileSteerTowardTarget>();
 
             ContentAddition.AddProjectile(prefab);
         }

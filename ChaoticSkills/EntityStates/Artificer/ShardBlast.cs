@@ -74,7 +74,7 @@ namespace ChaoticSkills.EntityStates.Artificer {
         private GameObject prefab => Content.Artificer.Shards.prefab;
         public ThrowShards(float _charge) {
             charge = _charge;
-            damageCoeff = Mathf.CeilToInt(Util.Remap(charge, 0, 1, 1f, 9.6f));
+            damageCoeff = Mathf.CeilToInt(Util.Remap(charge, 0, 1, 1f, 11f));
         }
 
         public override void OnEnter()
