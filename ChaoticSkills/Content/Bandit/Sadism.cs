@@ -58,7 +58,7 @@ namespace ChaoticSkills.Content.Bandit {
                             }
                         }
                     }
-                    Debug.Log("total debuffs: " + total);
+                    // Debug.Log("total debuffs: " + total);
                     for (int i = 0; i < total; i++) {
                         ProcChainMask mask = new();
                         mask.AddProc(SadismRepeatStrike);

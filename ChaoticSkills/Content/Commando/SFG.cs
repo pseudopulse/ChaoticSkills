@@ -33,6 +33,10 @@ namespace ChaoticSkills.Content.Commando {
 
             SFGProjectile.RemoveComponents<AkEvent>();
             SFGProjectile.RemoveComponents<AkGameObj>();
+            SFGGhost.RemoveComponents<AkEvent>();
+            SFGGhost.RemoveComponents<AkGameObj>();
+            SFGExplosion.RemoveComponents<AkEvent>();
+            SFGExplosion.RemoveComponents<AkGameObj>();
 
             // SFGProjectile.transform.localScale *= 0.3f;
             // SFGGhost.transform.localScale *= 0.3f;

@@ -57,6 +57,14 @@ Destroyer (Special) - Charge up a piercing blade for 900%-3700% damage. Emits a 
 Pathosis (Passive) - Attacks that apply poison instead apply Pathosis. Targets afflicted with Pathosis share damage taken with the nearby afflicted. 7.5s duration
 
 # Changelog
+## 1.6.0
+- networked nearly everything (tank isnt networked)
+- fixed pylon having no cap
+- fixed sprinting issues with offensive microbots
+- fixed pylon not properly adding the material
+- fixed pylon cloning bosses
+- switched pylon fallback spawns to chimera when on commencement
+- moved spark cannon vfx to originate from the eye cross so it doesnt wobble everywhere
 ## 1.5.0
 - removed gaze of the void
 - added Spark Cannon as an alternate primary for captain

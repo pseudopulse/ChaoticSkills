@@ -48,7 +48,7 @@ namespace ChaoticSkills.Content.Captain {
             ProjectileDamage damage = projectilePrefab.AddComponent<ProjectileDamage>();
             Rigidbody rb = projectilePrefab.AddComponent<Rigidbody>();
 
-            projectilePrefab.AddComponent<SpawnRandomSurvivorOnImpact>();
+            // projectilePrefab.AddComponent<SpawnRandomSurvivorOnImpact>();
             
             ContentAddition.AddProjectile(projectilePrefab);
 
@@ -58,52 +58,5 @@ namespace ChaoticSkills.Content.Captain {
             ContentAddition.AddSkillDef(callDropPodDef);
         }
 
-        private class SpawnRandomSurvivorOnImpact : MonoBehaviour, IProjectileImpactBehavior {
-            public void OnProjectileImpact(ProjectileImpactInfo info) {
-                Debug.Log("impact ran");
-                if (!base.GetComponent<ProjectileController>()) {
-                    Debug.Log("no controller returning");
-                    return;
-                }
-                ProjectileController controller = base.GetComponent<ProjectileController>();
-
-                if (!controller.owner || !controller.owner.GetComponent<CharacterBody>()) {
-                    Debug.Log("no owner returning");
-                    return;
-                }
-
-                List<GameObject> masters = new() {
-                    Utils.Paths.GameObject.MercMonsterMaster.Load<GameObject>(),
-                    Utils.Paths.GameObject.ToolbotMonsterMaster.Load<GameObject>(),
-                    Utils.Paths.GameObject.TreebotMonsterMaster.Load<GameObject>(),
-                    Utils.Paths.GameObject.LoaderMonsterMaster.Load<GameObject>(),
-                    Utils.Paths.GameObject.CommandoMonsterMaster.Load<GameObject>()
-                };
-
-                MasterSummon summon = new();
-                summon.teamIndexOverride = TeamIndex.Player;
-                summon.ignoreTeamMemberLimit = true;
-                summon.inventoryToCopy = controller.owner.GetComponent<CharacterBody>().inventory;
-                summon.summonerBodyObject = controller.owner;
-                summon.useAmbientLevel = false;
-                summon.position = info.estimatedPointOfImpact;
-                summon.rotation = Quaternion.identity;
-                summon.masterPrefab = masters.GetRandom();
-
-                if (NetworkServer.active) {
-                    CharacterMaster master = summon.Perform();
-                    if (master) {
-                        master.inventory.GiveItem(RoR2Content.Items.HealthDecay, 30);
-                    }
-                }
-
-                EffectManager.SpawnEffect(Utils.Paths.GameObject.OmniExplosionVFX.Load<GameObject>(), new EffectData {
-                    origin = info.estimatedPointOfImpact,
-                    scale = 4f
-                }, true);
-
-                Destroy(base.gameObject);
-            }
-        }
     }
 }

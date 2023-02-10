@@ -19,10 +19,8 @@ namespace ChaoticSkills.EntityStates.Captain {
         public override void OnEnter()
         {
             base.OnEnter();
-            Transform muzzle = GetModelChildLocator().FindChild("MuzzleGun");
+            Transform muzzle = GetModelChildLocator().FindChild("Head");
             vfxInstance = GameObject.Instantiate(vfxPrefab, muzzle);
-            PlayCrossfade("Gesture, Override", "ChargeCaptainShotgun", "ChargeCaptainShotgun.playbackRate", 2, 0.1f);
-		    PlayCrossfade("Gesture, Additive", "ChargeCaptainShotgun", "ChargeCaptainShotgun.playbackRate", 2, 0.1f);
             AkSoundEngine.PostEvent(Events.Play_loader_R_active_loop, base.gameObject);
         }
 
@@ -67,8 +65,6 @@ namespace ChaoticSkills.EntityStates.Captain {
         {
             base.OnExit();
             Destroy(vfxInstance);
-            PlayAnimation("Gesture, Additive", "FireCaptainShotgun");
-		    PlayAnimation("Gesture, Override", "FireCaptainShotgun");
             AkSoundEngine.PostEvent(Events.Stop_loader_R_active_loop, base.gameObject);
         }
 

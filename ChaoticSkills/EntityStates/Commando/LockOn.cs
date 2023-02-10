@@ -28,7 +28,7 @@ namespace ChaoticSkills.EntityStates.Commando {
                 FireProjectileInfo info = new();
                 info.owner = base.gameObject;
                 if (hasAcquiredTarget) info.target = controller.target.gameObject;
-                Debug.Log(hasAcquiredTarget);
+                // Debug.Log(hasAcquiredTarget);
                 info.damage = base.damageStat * damageCoeff;
                 info.crit = base.RollCrit();
                 info.position = GetModelChildLocator().FindChild("MuzzleRight").transform.position;

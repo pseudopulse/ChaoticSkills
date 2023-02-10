@@ -10,6 +10,7 @@ namespace ChaoticSkills.EntityStates.Merc {
         private float damageCoeff = 0.15f;
         private float delay = 0.1f;
         private float stopwatch = 0f;
+        private float maxDuration = 5f;
         List<KeyValuePair<HurtBox, GameObject>> tethers = new();
 
         public override void OnEnter()
@@ -24,6 +25,7 @@ namespace ChaoticSkills.EntityStates.Merc {
         public override void OnExit()
         {
             base.OnExit();
+            // Debug.Log("exiting");
             DestroyLightInstance();
             tetherTargets = Array.Empty<HurtBox>();
             CleanUpInstances();
@@ -38,6 +40,7 @@ namespace ChaoticSkills.EntityStates.Merc {
 
                 if (stopwatch >= delay) {
                     stopwatch = 0f;
+                    // Debug.Log("stopwatch");
 
                     BullseyeSearch search = new();
                     search.maxDistanceFilter = range;
@@ -57,8 +60,10 @@ namespace ChaoticSkills.EntityStates.Merc {
                             CreateTetherInstance(box);
                         }
 
+                        // Debug.Log(box);
+
                         if (NetworkServer.active) {
-                            Debug.Log("dealing damage");
+                            // Debug.Log("dealing damage");
                             DamageInfo info = new();
                             info.attacker = base.gameObject;
                             info.force = (base.transform.position - box.transform.position).normalized * 500;
@@ -79,10 +84,14 @@ namespace ChaoticSkills.EntityStates.Merc {
                     UpdateInstances();
                 }
 
-                if (!inputBank.skill2.down) {
-                    Debug.Log("ending skill");
+                if (!inputBank.skill2.down && base.isAuthority) {
+                    // Debug.Log("ending skill");
                     outer.SetNextStateToMain();
                 }
+            }
+
+            if (base.fixedAge >= maxDuration) {
+                outer.SetNextStateToMain();
             }
         }
 
@@ -136,6 +145,11 @@ namespace ChaoticSkills.EntityStates.Merc {
                 laserEndPoint.position = pair.Key.transform.position;
                 laserEndPoint.parent = pair.Key.transform;
             }
+        }
+
+        public override InterruptPriority GetMinimumInterruptPriority()
+        {
+            return InterruptPriority.PrioritySkill;
         }
     }
 }

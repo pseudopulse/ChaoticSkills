@@ -6,7 +6,9 @@ namespace ChaoticSkills.Content.Captain {
         public override float Cooldown => 0f;
         public override bool DelayCooldown => false;
         public override string Description => "Gain <style=cIsUtility>combatant microbots</style> that fire bursts of slowing lasers for <style=cIsDamage>360% damage</style> alongside you.";
-        public override bool Agile => false;
+        public override bool Agile => true;
+        public override bool SprintCancelable => true;
+        public override bool AgileAddKeyword => false;
         public override bool IsCombat => true;
         public override string LangToken => "OffensiveMicrobots";
         public override int StockToConsume => 1;
@@ -19,8 +21,10 @@ namespace ChaoticSkills.Content.Captain {
         public override SkillSlot Slot => SkillSlot.None;
         public override string Survivor => Utils.Paths.GameObject.CaptainBody;
         public override string Name => "Offensive Microbots";
+        public static GameObject MicrobotPrefab;
         public override void PostCreation()
         {
+
             On.RoR2.CaptainDefenseMatrixController.TryGrantItem += (orig, self) => {
                 bool hasPassive = false;
                 if (self.characterBody) {
@@ -34,8 +38,26 @@ namespace ChaoticSkills.Content.Captain {
                     orig(self);
                 }
                 else {
-                    if (!self.characterBody.GetComponent<OffensiveMatrixController>()) {
-                        self.characterBody.gameObject.AddComponent<OffensiveMatrixController>();
+                    
+                }
+            };
+
+            On.RoR2.CharacterBody.Start += (orig, self) => {
+                orig(self);
+                bool hasPassive = false;
+                if (self) {
+                    foreach (GenericSkill skill in self.GetComponents<GenericSkill>()) {
+                        if (skill.skillDef == SkillDef) {
+                            hasPassive = true;
+                        }
+                    }
+                }
+                if (!hasPassive) {
+                
+                }
+                else {
+                    if (!self.GetComponent<OffensiveMatrixController>()) {
+                        self.gameObject.AddComponent<OffensiveMatrixController>();
                     }
                 }
             };
@@ -53,6 +75,8 @@ namespace ChaoticSkills.Content.Captain {
                     orig(self, report);
                 }
             };
+
+            MicrobotPrefab = Utils.Paths.GameObject.PickupCaptainDefenseMatrix.Load<GameObject>().InstantiateClone("OffensiveMicrobot", false);
         }
 
         enum AttackType {
@@ -87,13 +111,12 @@ namespace ChaoticSkills.Content.Captain {
                     for (int i = 0; i < 3; i++) {
                         Microbot bot = new() {
                             mainSpeed = (360/speed) * UnityEngine.Random.Range(0.8f, 1.2f),
-                            microbot = GameObject.Instantiate(Utils.Paths.GameObject.PickupCaptainDefenseMatrix.Load<GameObject>()),
+                            microbot = GameObject.Instantiate(MicrobotPrefab),
                             distance = UnityEngine.Random.Range(0.9f, 2f),
                             offset = UnityEngine.Random.Range(-0.5f, 1f),
                             plane = Vector3.up,
                         };
                         bot.microbot.transform.localScale *= 0.3f;
-                        bot.microbot.AddComponent<NetworkIdentity>();
                         bot.microbot.RemoveComponent<ModelPanelParameters>();
                         switch (i) {
                             case 0:
@@ -110,7 +133,7 @@ namespace ChaoticSkills.Content.Captain {
                         microbots.Add(bot);
                     }
 
-                    self.onSkillActivatedServer += Fire;
+                    self.onSkillActivatedAuthority += Fire;
                 }
             }
 
@@ -173,7 +196,7 @@ namespace ChaoticSkills.Content.Captain {
                         battack.procCoefficient = 0f;
                         battack.teamIndex = TeamIndex.Monster;
 
-                        if (NetworkServer.active) {
+                        if (self.hasAuthority) {
                             battack.Fire();
                         }
                         EffectManager.SpawnEffect(Utils.Paths.GameObject.ExplosionGolem.Load<GameObject>(), new EffectData {
@@ -182,7 +205,7 @@ namespace ChaoticSkills.Content.Captain {
                         }, true);
                     }
  
-                    if (NetworkServer.active) {
+                    if (self.hasAuthority) {
                         attack.Fire();
                     }
                 }
@@ -232,7 +255,7 @@ namespace ChaoticSkills.Content.Captain {
                                 battack.procCoefficient = 0f;
                                 battack.teamIndex = TeamIndex.Monster;
 
-                                if (NetworkServer.active) {
+                                if (self.hasAuthority) {
                                     battack.Fire();
                                 }
                                 EffectManager.SpawnEffect(Utils.Paths.GameObject.ExplosionGolem.Load<GameObject>(), new EffectData {
@@ -241,7 +264,7 @@ namespace ChaoticSkills.Content.Captain {
                                 }, true);
                             }
         
-                            if (NetworkServer.active) {
+                            if (self.hasAuthority) {
                                 attack.Fire();
                             }
                         }

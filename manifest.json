@@ -1,8 +1,8 @@
 {
 	"name": "ChaoticSkills",
-	"version_number": "1.5.0",
+	"version_number": "1.6.0",
 	"website_url": "https://github.com/pseudopulse/ChaoticSkills",
-	"description": "Adds various alternate skills.",
+	"description": "Adds various alternate skills. The Networking Update™️",
 	"dependencies": [
 		"bbepis-BepInExPack-5.4.9",
 		"RiskofThunder-HookGenPatcher-1.2.1",

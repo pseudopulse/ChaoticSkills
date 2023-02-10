@@ -19,9 +19,11 @@ namespace ChaoticSkills.Content.Commando {
         public override string Survivor => Utils.Paths.GameObject.CommandoBody;
         public override string Name => "Barrage";
         public static GameObject MissileProjectile;
+        public static GameObject MissileProjectileGhost;
         public override void PostCreation()
         {
             MissileProjectile = Utils.Paths.GameObject.ToolbotGrenadeLauncherProjectile.Load<GameObject>().InstantiateClone("LockOnRocket");
+            MissileProjectileGhost = Utils.Paths.GameObject.ToolbotGrenadeGhost.Load<GameObject>().InstantiateClone("LockOnRocketGhost");
             MissileProjectile.AddComponent<ProjectileTargetComponent>();
             QuaternionPID pid = MissileProjectile.AddComponent<QuaternionPID>();
             pid.PID.x = 10;
@@ -45,6 +47,8 @@ namespace ChaoticSkills.Content.Commando {
             MissileProjectile.GetComponent<ProjectileImpactExplosion>().falloffModel = BlastAttack.FalloffModel.None;
 
             MissileProjectile.GetComponent<ProjectileDamage>().damageType = DamageType.Stun1s;
+
+            MissileProjectile.GetComponent<ProjectileController>().ghostPrefab = MissileProjectileGhost;
 
             PrefabAPI.RegisterNetworkPrefab(MissileProjectile);
 
@@ -94,6 +98,7 @@ namespace ChaoticSkills.Content.Commando {
                     search.FilterOutGameObject(base.gameObject);
                     HurtBox tmp = null;
                     foreach (HurtBox box in search.GetResults()) {
+                        if (box.teamIndex == TeamIndex.Player) continue;
                         tmp = box;
                         indicator.targetTransform = tmp.transform;
                         indicator.active = true;

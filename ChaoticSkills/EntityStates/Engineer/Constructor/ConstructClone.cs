@@ -15,35 +15,42 @@ namespace ChaoticSkills.EntityStates.Engineer {
         {
             base.OnEnter();
             ConstructPoint = GetModelChildLocator().FindChild("SpawnTarget");
-            GetModelChildLocator().FindChild("SpawnVFX").gameObject.SetActive(true);
             if (!base.characterBody.master.GetComponent<BaseAI>()) {
-                Debug.Log("not an AI, returning");
+                //Debug.Log("not an AI, returning");
                 outer.SetNextStateToMain();
                 return;
             }
 
+            if (SceneManager.GetActiveScene().name == "moon2" || SceneManager.GetActiveScene().name == "moon") {
+                fallbackSpawns.Clear();
+                fallbackSpawns.Add(Utils.Paths.GameObject.LunarWispMaster);
+                fallbackSpawns.Add(Utils.Paths.GameObject.LunarGolemMaster);
+                fallbackSpawns.Add(Utils.Paths.GameObject.LunarExploderMaster);
+            }
+
             BaseAI ai = base.characterBody.master.GetComponent<BaseAI>();
-            if (ai.currentEnemy.characterBody) {
+            if (ai.currentEnemy.characterBody && !ai.currentEnemy.characterBody.isBoss) {
                 targetIndex = ai.currentEnemy.characterBody.bodyIndex;
             }
             else if (ai.leader.characterBody) {
                 targetIndex = ai.leader.characterBody.bodyIndex;
             }
             else {
-                Debug.Log("dont have a current target, returning");
+                // Debug.Log("dont have a current target, returning");
                 outer.SetNextStateToMain();
                 return;
             }
 
             GameObject masterPrefab = MasterCatalog.FindMasterPrefab(BodyCatalog.GetBodyName(targetIndex).Replace("Body", "Master"));
-            Debug.Log(BodyCatalog.GetBodyName(targetIndex));
+            // Debug.Log(BodyCatalog.GetBodyName(targetIndex));
             if (!masterPrefab) {
                 // masterPrefab = MasterCatalog.FindMasterPrefab(BodyCatalog.GetBodyName(targetIndex).Replace("Body", "MonsterMaster"));
             }
             if (!masterPrefab) {
                 masterPrefab = fallbackSpawns.GetRandom().Load<GameObject>();
             }
-            if (NetworkServer.active && masterPrefab) {
+            if (NetworkServer.active && masterPrefab && IsSummonValid()) {
+                GetModelChildLocator().FindChild("SpawnVFX").gameObject.SetActive(true);
                 MasterSummon summon = new();
                 summon.masterPrefab = masterPrefab;
                 summon.inventoryToCopy = base.characterBody.inventory;
@@ -56,7 +63,7 @@ namespace ChaoticSkills.EntityStates.Engineer {
                 if (constructionInstance) {
                     constructionMaster = constructionInstance.GetComponent<CharacterMaster>();
                     constructionBody = constructionMaster.GetBody();
-                    constructionBody.AddTimedBuff(Content.Engineer.Constructor.BeingConstructed, constructTimer);
+                    constructionBody.AddBuff(Content.Engineer.Constructor.BeingConstructed);
                     constructionBody.visionDistance = 0f;
 
                     foreach (EntityStateMachine esm in constructionBody.GetComponents<EntityStateMachine>()) {
@@ -96,7 +103,7 @@ namespace ChaoticSkills.EntityStates.Engineer {
                         constructionBody.characterMotor.enabled = true;
                     }
                 }
-                Debug.Log("construction timer finished, returning");
+                //Debug.Log("construction timer finished, returning");
                 outer.SetNextStateToMain();
             }
         }
@@ -110,6 +117,22 @@ namespace ChaoticSkills.EntityStates.Engineer {
         {
             base.OnExit();
             GetModelChildLocator().FindChild("SpawnVFX").gameObject.SetActive(false);
+            if (constructionBody) {
+                constructionBody.visionDistance = constructionBody.baseVisionDistance;
+                if (constructionBody.characterMotor) {
+                    constructionBody.characterMotor.enabled = true;
+                }
+            }
+        }
+
+        public bool IsSummonValid() {
+            int t = 0;
+            foreach (TeamComponent com in TeamComponent.GetTeamMembers(GetTeam())) {
+                if (com.body.HasBuff(Content.Engineer.Constructor.BeingConstructed)) {
+                    t++;
+                }
+            }
+            return t < 6;
         }
     }
 }

@@ -1,4 +1,7 @@
 using System;
+using R2API.Networking;
+using R2API.Networking.Interfaces;
+using ChaoticSkills.EntityStates.Engineer;
 
 namespace ChaoticSkills.Content.Engineer {
     public class Medic : SkillBase<Medic> {
@@ -33,6 +36,8 @@ namespace ChaoticSkills.Content.Engineer {
             cb.baseRegen = 7.5f;
             cb.baseArmor = 35f;
             cb.baseMoveSpeed *= 1.9f;
+
+            MedicTurretBody.AddComponent<UberComponent>();
 
 
             EntityStateMachine machine = MedicTurretBody.GetComponents<EntityStateMachine>().First(x => x.customName == "Weapon");
@@ -72,6 +77,8 @@ namespace ChaoticSkills.Content.Engineer {
             ContentAddition.AddMaster(MedicTurretMaster);
 
             Misc.AllyCaps.RegisterAllyCap(MedicTurretBody);
+
+            NetworkingAPI.RegisterMessageType<UberUpdate>();
             
             On.RoR2.UI.AllyCardController.UpdateInfo += Uber;
         }
@@ -83,12 +90,75 @@ namespace ChaoticSkills.Content.Engineer {
                 if (body.bodyIndex != BodyCatalog.FindBodyIndex(MedicTurretBody)) {
                     return;
                 }
-                EntityStateMachine machine = body.GetComponents<EntityStateMachine>().First(x => x.customName == "Weapon");
-                EntityStates.Engineer.MedicTurretState state;
-                if ((state = machine.state as EntityStates.Engineer.MedicTurretState) != null) {
+                UberComponent com = body.GetComponent<UberComponent>();
+                if (com) {
                     string text = Util.GetBestBodyName(body.gameObject);
-                    text = text + $" ({Mathf.RoundToInt(state.uber)}%)";
+                    text = text + $" ({Mathf.RoundToInt((float)com.uber)}%)";
                     self.nameLabel.text = text;
+                }
+            }
+        }
+
+        public class UberComponent : MonoBehaviour {
+            public float uber = 0;
+            public bool isUbercharged = false;
+            public bool canBuildUber = false;
+            private float maxUber = 100f;
+            private float uberRate => maxUber / secondsForFullUber;
+            private float uberDrainRate => maxUber / usedUberDuration;
+            private float secondsForFullUber = 45f;
+            private float usedUberDuration = 8f;
+
+            public void FixedUpdate() {
+                if (canBuildUber) {
+                    if (!isUbercharged) {
+                        uber += uberRate * Time.fixedDeltaTime;
+                    }
+                }
+
+                if (isUbercharged) {
+                    uber -= uberDrainRate * Time.fixedDeltaTime;
+                }
+            }
+        }
+
+        public class UberUpdate : INetMessage {
+            private bool isUbercharged;
+            private bool canBuildUber;
+            private float uber;
+            private GameObject target;
+
+            public UberUpdate() {}
+
+            public UberUpdate(bool x, bool y, float z, GameObject t) {
+                isUbercharged = x;
+                canBuildUber = y;
+                uber = z;
+                target = t;
+            }
+
+            public void Serialize(NetworkWriter writer) {
+                writer.Write(isUbercharged);
+                writer.Write(canBuildUber);
+                writer.Write((double)uber);
+                writer.Write(target);
+            }
+
+            public void Deserialize(NetworkReader reader) {
+                isUbercharged = reader.ReadBoolean();
+                canBuildUber = reader.ReadBoolean();
+                uber = (float)reader.ReadDouble();
+                target = reader.ReadGameObject();
+            }
+
+            public void OnReceived() {
+                if (target) {
+                    UberComponent com = target.GetComponent<UberComponent>();
+                    if (com) {
+                        com.uber = uber;
+                        com.canBuildUber = canBuildUber;
+                        com.isUbercharged = isUbercharged;
+                    }
                 }
             }
         }

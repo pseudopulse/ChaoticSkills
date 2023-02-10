@@ -55,15 +55,15 @@ namespace ChaoticSkills.Utils {
                     filtered = filtered.Replace(badChar, "");
                 }
             }
-            Debug.Log(filtered);
+            // Debug.Log(filtered);
             return filtered;
         }
 
         public static bool HasSkillEquipped(this CharacterBody body, SkillDef skill) {
             foreach (GenericSkill slot in body.GetComponents<GenericSkill>()) {
-                Debug.Log(slot.skillDef);
+               //  Debug.Log(slot.skillDef);
                 if (slot.skillDef == skill) {
-                    Debug.Log("trur");
+                    // Debug.Log("trur");
                     return true;
                 }
             }

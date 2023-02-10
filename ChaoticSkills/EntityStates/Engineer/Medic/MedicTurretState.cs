@@ -1,91 +1,109 @@
 using System;
 using EntityStates.Engi.EngiWeapon;
+using ChaoticSkills.Content.Engineer;
+using R2API.Networking.Interfaces;
+using R2API.Networking;
 
 namespace ChaoticSkills.EntityStates.Engineer {
     public class MedicTurretState : BaseState {
         public float uber = 0f;
         private float durationOfUber = 0.5f;
-        private float maxUber = 100f;
         private GameObject healBeamInstance;
         private GameObject healBeamPrefab = Utils.Paths.GameObject.HealDroneHealBeam.Load<GameObject>();
         private BaseAI ai;
         private bool isUbercharged = false;
+        private float maxUber = 100f;
+        private float uberRate => maxUber / secondsForFullUber;
+        private float uberDrainRate => maxUber / usedUberDuration;
+        private float secondsForFullUber = 45f;
+        private float usedUberDuration = 8f;
+        private bool canBuildUber => target != null;
         private HealthComponent prevTarget;
-        private HealthComponent target;
+        public HealthComponent target;
+        private HealthComponent healBeamTarget;
+        private Medic.UberComponent uberCom;
 
         public override void OnEnter()
         {
             base.OnEnter();
             ai = base.characterBody.masterObject.GetComponent<BaseAI>();
+            uberCom = base.GetComponent<Medic.UberComponent>();
         }
 
         public override void FixedUpdate()
         {
             base.FixedUpdate();
-            if (ai) {
-                Debug.Log("calling updatehealbeam");
+            if (ai && base.isAuthority) {
                 UpdateHealBeam();
             }
         }
 
         private void UpdateHealBeam() {
             prevTarget = target;
-            UpdateTarget();
-            if (target != prevTarget) {
-                if (healBeamInstance != null) {
-                    Destroy(healBeamInstance);
-                }
+            if ((prevTarget != target || healBeamTarget != target) && healBeamInstance) {
+                // target swapped
+                NetworkServer.UnSpawn(healBeamInstance);
+                Destroy(healBeamInstance);
+                new Medic.UberUpdate(isUbercharged, canBuildUber, uber, this.gameObject).Send(NetworkDestination.Clients);
             }
-            if (target && Vector3.Distance(base.transform.position, target.body.transform.position) < 25) {
-                Debug.Log("target and in range");
-                if (healBeamInstance != null) {
-                    if (isUbercharged && base.isAuthority) {
-                        ai.leader.characterBody.AddTimedBuff(RoR2Content.Buffs.FullCrit, durationOfUber, 1);
-                        ai.leader.characterBody.AddTimedBuff(RoR2Content.Buffs.Immune, durationOfUber, 1);
+
+            UpdateTarget();
+            if (target) {
+                bool isWithinRange = Vector3.Distance(base.characterBody.corePosition, target.transform.position) <= 25;
+                if (isWithinRange) {
+                    if (!isUbercharged) {
+                        uber += uberRate * Time.fixedDeltaTime;
+
+                        if (uber >= maxUber) {
+                            isUbercharged = true;
+                            new Medic.UberUpdate(isUbercharged, canBuildUber, uber, this.gameObject).Send(NetworkDestination.Clients);
+                        }
                     }
                     else {
-                        uber += 1.5f * Time.fixedDeltaTime;
-                        Debug.Log("adding uber");
-                    }
+                        uber -= uberDrainRate * Time.fixedDeltaTime;
+                        target.body.AddTimedBuff(RoR2Content.Buffs.Immune, durationOfUber, 1);
+                        target.body.AddTimedBuff(RoR2Content.Buffs.FullCrit, durationOfUber, 1);
 
-                    if (uber >= maxUber) {
-                        if (ai.leader.characterBody) {
-                            isUbercharged = true;
-                            AkSoundEngine.PostEvent(Events.Play_moonBrother_orb_slam_impact, base.gameObject);
+                        if (uber <= 0) {
+                            uber = 0f;
+                            isUbercharged = false;
+                            new Medic.UberUpdate(isUbercharged, canBuildUber, uber, this.gameObject).Send(NetworkDestination.Clients);
                         }
                     }
 
-                    HealBeamController controller = healBeamInstance.GetComponent<HealBeamController>();
-                    controller.startPointTransform.parent = base.FindModelChild("Muzzle");
-                    controller.startPointTransform.position = base.FindModelChild("Muzzle").position;
-                    Debug.Log("updating beam");
+                    if (!healBeamInstance) {
+                        healBeamInstance = GameObject.Instantiate(healBeamPrefab, base.FindModelChild("Muzzle"));
+                        HealBeamController controller = healBeamInstance.GetComponent<HealBeamController>();
+                        controller.maxLineWidth = 1.5f;
+                        controller.healRate = 2.5f;
+                        controller.ownership.ownerObject = base.gameObject;
+                        controller.target = target.body.mainHurtBox;
+                        healBeamTarget = target;
+                        
+                        NetworkServer.Spawn(healBeamInstance);
+                        new Medic.UberUpdate(isUbercharged, canBuildUber, uber, this.gameObject).Send(NetworkDestination.Clients);
+                    }
                 }
                 else {
-                    Debug.Log("creating beam");
-                    healBeamInstance = GameObject.Instantiate(healBeamPrefab, base.FindModelChild("Muzzle"));
-                    HealBeamController controller = healBeamInstance.GetComponent<HealBeamController>();
-                    controller.healRate = base.damageStat * 0.7f;
-                    controller.maxLineWidth = 1.5f;
-                    controller.target = target.body.mainHurtBox;
-                    controller.ownership.ownerObject = base.gameObject;
+                    if (healBeamInstance) {
+                        NetworkServer.UnSpawn(healBeamInstance);
+                        Destroy(healBeamInstance);
+                        new Medic.UberUpdate(isUbercharged, canBuildUber, uber, this.gameObject).Send(NetworkDestination.Clients);
+                    }
                 }
+
+                uberCom.uber = uber;
             }
             else {
-                if (healBeamInstance != null) {
+                if (healBeamInstance) {
+                    NetworkServer.UnSpawn(healBeamInstance);
                     Destroy(healBeamInstance);
-                    Debug.Log("destroying beam no target");
+                    new Medic.UberUpdate(isUbercharged, canBuildUber, uber, this.gameObject).Send(NetworkDestination.Clients);
                 }
             }
 
-            if (isUbercharged) {
-                uber -= 12.5f * Time.fixedDeltaTime;
-                if (base.isAuthority) {
-                    base.characterBody.AddTimedBuff(RoR2Content.Buffs.Immune, durationOfUber, 1);
-                }
-            }
-            if (uber <= 1) {
-                uber = 1.1f;
-                isUbercharged = false;
+            if (uberCom) {
+                uberCom.uber = uber;
             }
         }
 
@@ -109,6 +127,12 @@ namespace ChaoticSkills.EntityStates.Engineer {
             else {
                 target = ai.leader.healthComponent;
             }
+        }
+
+        public override void OnExit()
+        {
+            base.OnExit();
+            outer.SetNextStateToMain();
         }
 
         public override InterruptPriority GetMinimumInterruptPriority()
