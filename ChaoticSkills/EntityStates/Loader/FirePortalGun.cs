@@ -1,4 +1,4 @@
-using System;
+/*using System;
 
 namespace ChaoticSkills.EntityStates.Loader {
     public class FirePortalBase : BaseState {
@@ -18,10 +18,6 @@ namespace ChaoticSkills.EntityStates.Loader {
 
                 ProjectileManager.instance.FireProjectile(info);
 
-                /*if (Physics.Raycast(base.GetAimRay().origin, base.GetAimRay().direction, out RaycastHit hit, LayerIndex.world.mask)) {
-                    Quaternion rotation = Util.QuaternionSafeLookRotation(base.GetAimRay().direction * -1);
-                    GameObject portal = GameObject.Instantiate(portalPrefab, hit.point, rotation);
-                }*/
             }
             AkSoundEngine.PostEvent(Events.Play_item_use_BFG_fire, base.gameObject);
             outer.SetNextStateToMain();
@@ -29,10 +25,10 @@ namespace ChaoticSkills.EntityStates.Loader {
     }
 
     public class FireYellowPortal : FirePortalBase {
-        // public override GameObject portalPrefab => Content.Loader.PortalGun.PortalOrangePrefab;
+        public override GameObject portalPrefab => Content.Loader.PortalGun.PortalOrangePrefab;
     }
 
     public class FireBluePortal : FirePortalBase {
-        // public override GameObject portalPrefab => Content.Loader.PortalGun.PortalBluePrefab;
+        public override GameObject portalPrefab => Content.Loader.PortalGun.PortalBluePrefab;
     }
-}
+}*/

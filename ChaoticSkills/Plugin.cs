@@ -9,6 +9,7 @@ using BepInEx.Configuration;
 
 namespace ChaoticSkills {
     [BepInPlugin(PluginGUID, PluginName, PluginVersion)]
+    [BepInDependency("xyz.yekoc.PassiveAgression", BepInDependency.DependencyFlags.SoftDependency)] // soft dependency so it loads first
     public class Main : BaseUnityPlugin {
         public const string PluginGUID = PluginAuthor + "." + PluginName;
         public const string PluginAuthor = "pseudopulse";

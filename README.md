@@ -57,6 +57,8 @@ Destroyer (Special) - Charge up a piercing blade for 900%-3700% damage. Emits a 
 Pathosis (Passive) - Attacks that apply poison instead apply Pathosis. Targets afflicted with Pathosis share damage taken with the nearby afflicted. 7.5s duration
 
 # Changelog
+## 1.6.1
+- fixed loadout tab conflict between passiveaggression and this
 ## 1.6.0
 - networked nearly everything (tank isnt networked)
 - fixed pylon having no cap

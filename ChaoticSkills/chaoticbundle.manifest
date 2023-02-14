@@ -1,17 +1,19 @@
 ManifestFileVersion: 0
-CRC: 1022139085
+CRC: 3678199738
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: d10ae11f4b6d281325163fbade83e467
+    Hash: 6b4f61f28eeeb6b77b686f4f62b711fb
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 868a9c80451bb1b6650a7dfa43bed891
+    Hash: 22d03fb250875dd8427fbf33470d9a04
 HashAppended: 0
 ClassTypes:
 - Class: 1
   Script: {instanceID: 0}
 - Class: 4
+  Script: {instanceID: 0}
+- Class: 20
   Script: {instanceID: 0}
 - Class: 21
   Script: {instanceID: 0}
@@ -32,6 +34,8 @@ ClassTypes:
 - Class: 65
   Script: {instanceID: 0}
 - Class: 74
+  Script: {instanceID: 0}
+- Class: 84
   Script: {instanceID: 0}
 - Class: 90
   Script: {instanceID: 0}
@@ -57,8 +61,6 @@ ClassTypes:
   Script: {fileID: -2005973111, guid: 951ce57ad999ac1f040a4dceb5f8b763, type: 3}
 - Class: 114
   Script: {fileID: -1811796171, guid: 951ce57ad999ac1f040a4dceb5f8b763, type: 3}
-- Class: 114
-  Script: {fileID: -2119659324, guid: 951ce57ad999ac1f040a4dceb5f8b763, type: 3}
 - Class: 114
   Script: {fileID: 1357070253, guid: 951ce57ad999ac1f040a4dceb5f8b763, type: 3}
 - Class: 114
@@ -158,7 +160,6 @@ ClassTypes:
 SerializeReferenceClassIdentifiers: []
 Assets:
 - Assets/Prefabs/Engineer/Constructor/ConstructorMaster.prefab
-- Assets/Prefabs/Loader/PortalPrefabs/PortalYellow.prefab
 - Assets/Prefabs/Engineer/BFT/BFTModel/railgun.prefab
 - Assets/Prefabs/Captain/Spark/SparkPrefab.prefab
 - Assets/Icons/Acrid/PathosisDebuff.png
@@ -168,6 +169,7 @@ Assets:
 - Assets/Icons/Engineer/Medic.png
 - Assets/Icons/Commando/LockOn.png
 - Assets/Icons/MUL-T/AutoNailblast.png
+- Assets/Prefabs/Loader/PortalPrefabs/PortalBlue.prefab
 - Assets/Prefabs/Engineer/Constructor/ConstructorBody.prefab
 - Assets/Prefabs/Viend/Watcher/Watcher.prefab
 - Assets/Icons/Engineer/BFT.png
@@ -186,13 +188,13 @@ Assets:
 - Assets/Prefabs/Viend/WatcherVoid/WatcherVoid.prefab
 - Assets/Icons/Captain/OffensiveMicrobots.png
 - Assets/Prefabs/Loader/PortalBlueProjectile.prefab
-- Assets/Prefabs/Loader/PortalPrefabs/PortalBlue.prefab
 - Assets/Icons/Engineer/Constructor.png
 - Assets/Icons/Engineer/Sniper.png
 - Assets/Prefabs/Artificer/Jetpack/FuelIndicator.prefab
 - Assets/Icons/Captain/Design.png
 - Assets/Icons/Merc/Momentum.png
 - Assets/Icons/Huntress/Destroyer.png
+- Assets/Prefabs/Loader/PortalPrefabs/PortalYellow.prefab
 - Assets/Prefabs/Engineer/BFT/BFTBody.prefab
 - Assets/Prefabs/Artificer/Tank/Tank.prefab
 - Assets/Prefabs/Loader/PortalYellowProjectile.prefab

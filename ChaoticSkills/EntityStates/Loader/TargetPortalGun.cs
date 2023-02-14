@@ -1,4 +1,4 @@
-using System;
+/*using System;
 using RoR2.UI;
 
 namespace ChaoticSkills.EntityStates.Loader {
@@ -38,4 +38,4 @@ namespace ChaoticSkills.EntityStates.Loader {
             }
         }
     }
-}
+}*/

@@ -1,4 +1,4 @@
-using System;
+/*using System;
 
 namespace ChaoticSkills.Content.Loader {
     public class FirePortalYellow : SkillBase<FirePortalYellow> {
@@ -24,4 +24,4 @@ namespace ChaoticSkills.Content.Loader {
             
         }
     }
-}
+}*/
