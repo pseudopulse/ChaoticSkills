@@ -45,5 +45,10 @@ namespace ChaoticSkills.EntityStates.Commando {
                 outer.SetNextStateToMain();
             }
         }
+
+        public override InterruptPriority GetMinimumInterruptPriority()
+        {
+            return InterruptPriority.PrioritySkill;
+        }
     }
 }

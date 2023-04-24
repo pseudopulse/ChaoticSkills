@@ -20,7 +20,7 @@ Frost Grenade (Special) - Freezing. Toss a grenade that explodes in an icy blast
 Barrage (Secondary) - Stunning. Fire 3 targeted rockets for 400% damage.
 
 ## Engineer
-TR-80 Sniper Turret (Special) - Place a turret that inherits all of your items. Fires a periodic burst of 3 piercing bolts for 700% per shot that slow. Can place up to 1.
+TR-80 Sniper Turret (Special) - Place a turret that inherits all of your items. Fires a piercing bolt for 900% that slows. Can place up to 1.
 
 PM-30 Support Turret (Special) - Place a turret that inherits all of your items. Heals it's owner and provides them with 8 seconds of invulnerability and guaranteed critical hits after enough healing. Can place up to 1
 
@@ -57,6 +57,11 @@ Destroyer (Special) - Charge up a piercing blade for 900%-3700% damage. Emits a 
 Pathosis (Passive) - Attacks that apply poison instead apply Pathosis. Targets afflicted with Pathosis share damage taken with the nearby afflicted. 7.5s duration
 
 # Changelog
+## 1.6.2
+- changed TR-80 Sniper Turret to fire a single, more powerful shot at a much larger range
+- fixed Barrage getting canceled early by other skills and itself
+- changed the icon
+- added R2API_Networking to the dependencies (it was required since 1.6.0 but i forgor to include it)
 ## 1.6.1
 - fixed loadout tab conflict between passiveaggression and this
 ## 1.6.0

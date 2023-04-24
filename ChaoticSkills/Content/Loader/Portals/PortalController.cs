@@ -11,14 +11,8 @@ namespace ChaoticSkills.Content.Loader {
         private void Start() {
             ClearDuplicatePortals();
             UpdateLink();
-            // portalCamera = transform.Find("Camera").GetComponent<Camera>();
-            // Camera.onPreRender += BeginCameraRendering;
+            portalCamera = transform.root.Find("Camera").GetComponent<Camera>();
         } 
-
-        private void OnDestroy() {
-            // Camera.onPreRender -= BeginCameraRendering;
-        }
-
 
         private void ClearDuplicatePortals() {
             PortalController[] controllers = GameObject.FindObjectsOfType<PortalController>();

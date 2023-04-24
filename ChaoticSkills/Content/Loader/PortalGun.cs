@@ -14,7 +14,7 @@ namespace ChaoticSkills.Content.Loader {
         public override int StockToConsume => 1;
         public override string Machine => "Hook";
         public override Sprite SkillIcon => null;
-        public override SkillSlot Slot => SkillSlot.Secondary;
+        public override SkillSlot Slot => SkillSlot.Special;
         public override string Survivor => Utils.Paths.GameObject.LoaderBody;
         public override string Name => "Portal Gun";
         public static GameObject PortalOrangePrefab;

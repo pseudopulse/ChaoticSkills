@@ -1,8 +1,8 @@
 {
 	"name": "ChaoticSkills",
-	"version_number": "1.6.1",
+	"version_number": "1.6.2",
 	"website_url": "https://github.com/pseudopulse/ChaoticSkills",
-	"description": "Adds various alternate skills. The Networking Update™️",
+	"description": "Adds various alternate skills.",
 	"dependencies": [
 		"bbepis-BepInExPack-5.4.9",
 		"RiskofThunder-HookGenPatcher-1.2.1",
@@ -10,6 +10,7 @@
 		"RiskofThunder-R2API_Core-5.0.3",
 		"RiskofThunder-R2API_ContentManagement-1.0.1",
 		"RiskofThunder-R2API_Prefab-1.0.1",
+		"RiskofThunder-R2API_Networking-1.0.0",
 		"KingEnderBrine-ScrollableLobbyUI-1.7.6"
 	]
 }
