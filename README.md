@@ -33,6 +33,8 @@ Thermal Blast (Primary) - Agile. Ignite. Fire dual flamethrowers for 600% damage
 Constructor Pylon (Special) - Place a stationary device that produces clones of it's targets periodically. Clones inherit your items.
 
 ## Mercenary
+Phantom Strike (Primary) - Unleash a flurry of 3 phantom mercenaries that each slash for 200% damage.
+
 Fluoresence (Secondary) - Agile. Tether enemies, dragging them towards you and repeatedly strike them for 15% damage. 50% slow on self when active.
 
 Momentum Capacitors (Passive) - Killing airborne enemies grants a stacking 10% boost to damage. All stacks reset upon touching the ground.
@@ -42,13 +44,19 @@ Overcharged Jetpack (Passive) - Hold jump midair to fly. Flying drains fuel. Fue
 
 Fracture (Primary) - Charge up a lunar bolt for 300%-1100% damage.
 
+Flamerang (Primary) - Ignite. Swing a flaming sawblade for 400% damage per second.
+
 M1A2 SEPV3 Main Battle Tank (Utility) - Deploy a rideable M1A2 SEPV3 Main Battle Tank. Primary fire launches a rocket for 2500% damage.
 
 ## Bandit
 Sadism (Passive) - Your attacks strike an additional time for each debuff on the target, dealing 50% TOTAL damage.
 
+Feign (Utility) - Negate the next instance of damage and warp behind the attacker. Grants your next attack quadruple damage.
+
 ## MUL-T
 Auto-Nailblast (Primary & Misc) - Fire a stream of shotgun blasts for 6x90% damage. 50% slow on self when active.
+
+Heat Flush (Primary & Misc) - Fire a volley of molten slag, dealing 180% ignite damage and setting terrain ablaze.
 
 ## Huntress
 Destroyer (Special) - Charge up a piercing blade for 900%-3700% damage. Emits a stunning shockwave when fully charged. 50% slow on self when charging.
@@ -57,6 +65,12 @@ Destroyer (Special) - Charge up a piercing blade for 900%-3700% damage. Emits a 
 Pathosis (Passive) - Attacks that apply poison instead apply Pathosis. Targets afflicted with Pathosis share damage taken with the nearby afflicted. 7.5s duration
 
 # Changelog
+## 1.7.5
+- added Flamerang as an alternate primary for Artificer
+## 1.7.0
+- added Feign as an alternate utility for Bandit
+- aded Phantom Strike as an alternate primary for Mercenary
+- added Heat Flush as an alternate primary/misc for MUL-T
 ## 1.6.2
 - changed TR-80 Sniper Turret to fire a single, more powerful shot at a much larger range
 - fixed Barrage getting canceled early by other skills and itself

@@ -43,7 +43,7 @@ namespace ChaoticSkills.Content {
                 return;
             }
 
-            SkillDef = ScriptableObject.CreateInstance<SkillDef>();
+            SkillDef = GetSkillDef();
             SkillDef.skillNameToken = "SKILL_" + LangToken + "_NAME";
             SkillDef.skillDescriptionToken = "SKILL_" + LangToken + "_DESC";
             SkillDef.skillName = LangToken;
@@ -188,6 +188,10 @@ namespace ChaoticSkills.Content {
             ContentAddition.AddSkillDef(SkillDef);
 
             PostCreation();
+        }
+
+        public virtual SkillDef GetSkillDef() {
+            return ScriptableObject.CreateInstance<SkillDef>();
         }
 
         public virtual void PostCreation() {

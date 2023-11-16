@@ -12,7 +12,7 @@ namespace ChaoticSkills.EntityStates.MULT {
         private float delay => 1f / shotsPerSecond;
         private float stopwatch = 0f;
         private CrosshairUtils.OverrideRequest crosshair;
-        public override string baseMuzzleName => "MuzzleNailgun";
+        public override string baseMuzzleName => "MuzzleGrenadeLauncher";
         public override void OnEnter()
         {
             base.OnEnter();
