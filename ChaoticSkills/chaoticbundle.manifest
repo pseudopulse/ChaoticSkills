@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 2686658462
+CRC: 3205349361
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: b910c40a817bde65d2004b5ec2a00270
+    Hash: c33cfba3074fec1ad2ce0f72a9a87939
   TypeTreeHash:
     serializedVersion: 2
     Hash: 102a8d8713dd4a4a076a19249ad33252
@@ -164,6 +164,7 @@ Assets:
 - Assets/Icons/Merc/PhantomStrike.png
 - Assets/Prefabs/Captain/Spark/SparkPrefab.prefab
 - Assets/Icons/Acrid/PathosisDebuff.png
+- Assets/Icons/Railgunner/Coin.png
 - Assets/Icons/Merc/AirBonus.png
 - Assets/Icons/Commando/SFG.png
 - Assets/Prefabs/Huntress/Destroyer/Destroyer.prefab

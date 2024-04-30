@@ -127,6 +127,12 @@ namespace ChaoticSkills.EntityStates.Engineer {
             else {
                 target = ai.leader.healthComponent;
             }
+
+            CharacterBody meetTheHeavy = FindAnyEnforcer();
+
+            if (meetTheHeavy) {
+                target = meetTheHeavy.healthComponent;
+            }
         }
 
         public override void OnExit()
@@ -138,6 +144,10 @@ namespace ChaoticSkills.EntityStates.Engineer {
         public override InterruptPriority GetMinimumInterruptPriority()
         {
             return InterruptPriority.Death;
+        }
+
+        public CharacterBody FindAnyEnforcer() {
+            return CharacterBody.readOnlyInstancesList.Where(x => x.gameObject.name == "EnforcerBody(Clone)").FirstOrDefault();
         }
     }
 }

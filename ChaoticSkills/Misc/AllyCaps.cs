@@ -39,8 +39,14 @@ namespace ChaoticSkills.Misc {
                             ).ToArray();
 
                             int total = 0;
+                            int max = 0;
                             bool hasLysate = self.master.minionOwnership.ownerMaster.inventory.GetItemCount(DLC1Content.Items.EquipmentMagazineVoid) > 1;
-                            int max = hasLysate ? cap.lysateCap : cap.cap;
+                            if (Main.config.Bind<bool>("Global", "Uncap Lysate Cell", false, "Uncap the number of minions you can have with Lysate Cell").Value) {
+                                max = cap.cap + self.master.minionOwnership.ownerMaster.inventory.GetItemCount(DLC1Content.Items.EquipmentMagazineVoid);
+                            }
+                            else {
+                                max = hasLysate ? cap.lysateCap : cap.cap;
+                            }
 
                             foreach (MinionOwnership minion in minions) {
                                 total += 1;

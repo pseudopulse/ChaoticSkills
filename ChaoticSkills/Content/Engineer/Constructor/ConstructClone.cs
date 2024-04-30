@@ -18,5 +18,6 @@ namespace ChaoticSkills.Content.Engineer {
         public override bool AutoApply => false;
         public override string Survivor => Utils.Paths.GameObject.EngiBody;
         public override string Name => "Construct Clone";
+        public override bool Configurable => false;
     }
 }

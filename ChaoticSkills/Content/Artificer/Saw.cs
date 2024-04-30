@@ -10,7 +10,7 @@ namespace ChaoticSkills.Content.Artificer {
         public override float Cooldown => 0f;
         public override bool DelayCooldown => true;
         public override string Description => "<style=cIsDamage>Ignite.</style> Swing a <style=cIsDamage>flaming saw</style> for <style=cIsDamage>400% damage per second</style>.";
-        public override bool Agile => false;
+        public override bool Agile => true;
         public override bool IsCombat => true;
         public override string LangToken => "Saw";
         public override int StockToConsume => 0;

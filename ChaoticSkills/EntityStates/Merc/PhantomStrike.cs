@@ -42,7 +42,7 @@ namespace ChaoticSkills.EntityStates.Merc {
         {
             base.FixedUpdate();
 
-            if (base.fixedAge >= delay) {
+            if (base.fixedAge >= delay || !base.inputBank.skill1.down) {
                 
                 if (hasSlashed == false) {
                     GhostMercSlash();

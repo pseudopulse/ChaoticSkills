@@ -4,6 +4,7 @@
       <TargetFramework>netstandard2.0</TargetFramework>
       <LangVersion>preview</LangVersion>
       <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+      <EnableNetAnalyzers>false</EnableNetAnalyzers>
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -32,6 +33,7 @@
       <PackageReference Include="R2API.Prefab" Version="1.0.1" />
       <PackageReference Include="R2API.ContentManagement" Version="1.0.1" />
       <PackageReference Include="R2API.Networking" Version="1.0.1" />
+      <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.8.0" />
     </ItemGroup>
   
     <ItemGroup>

@@ -33,13 +33,23 @@ namespace ChaoticSkills.Content {
         public virtual bool MustKeyPress { get; } = false;
         public virtual bool AgileAddKeyword { get; } = true;
         public virtual bool SprintCancelable { get; } = true;
+        public virtual bool ResetStockOnOverride { get; } = false;
         public virtual bool Passive { get; } = false;
+        public virtual bool Configurable { get; } = true;
+        public virtual bool ForceOff { get; } = false;
+        public virtual InterruptPriority Priority { get; } = InterruptPriority.Skill;
+        public virtual int StockToRecharge { get; } = 1;
         /*public virtual bool MiscSelectable { get; } = false;
         public virtual string MiscSelectableName { get; } = null;*/
         public SkillDef SkillDef;
         public static EventHandler PostCreationEvent;
         public void Init() {
-            if (AutoApply && !Main.config.Bind<bool>("Skills", Name.Filter(), true, "Enable this skill?").Value) {
+
+            if (ForceOff) {
+                return;
+            }
+
+            if (Configurable && !Main.config.Bind<bool>("Skills", Name.Filter(), true, "Enable this skill?").Value) {
                 return;
             }
 
@@ -52,6 +62,7 @@ namespace ChaoticSkills.Content {
             SkillDef.activationState = ActivationState;
             SkillDef.cancelSprintingOnActivation = Passive ? false : !Agile;
             SkillDef.icon = SkillIcon;
+            SkillDef.interruptPriority = Priority;
             if (!SprintCancelable) {
                 SkillDef.canceledFromSprinting = false;
             }
@@ -64,6 +75,8 @@ namespace ChaoticSkills.Content {
             SkillDef.stockToConsume = StockToConsume;
             SkillDef.requiredStock = Passive ? 321 : 1;
             SkillDef.mustKeyPress = MustKeyPress;
+            SkillDef.fullRestockOnAssign = ResetStockOnOverride;
+            SkillDef.rechargeStock = StockToRecharge;
             (SkillDef as ScriptableObject).name = LangToken;
             List<string> newKeywords = Keywords;
 
@@ -196,6 +209,22 @@ namespace ChaoticSkills.Content {
 
         public virtual void PostCreation() {
             PostCreationEvent?.Invoke(this, new());
+        }
+
+        public EntityStateMachine AddEntityStateMachine<T>(GameObject obj, string name) where T : EntityState {
+            EntityStateMachine stateMachine = obj.AddComponent<EntityStateMachine>();
+            stateMachine.customName = name;
+            stateMachine.initialStateType = new SerializableEntityStateType(typeof(T));
+            stateMachine.mainStateType = new SerializableEntityStateType(typeof(T));
+            
+            List<EntityStateMachine> stateMachines = obj.GetComponents<EntityStateMachine>().ToList();
+            obj.GetComponent<NetworkStateMachine>().stateMachines = stateMachines.ToArray();
+
+            return stateMachine;
+        }
+
+        public GameObject GetSurvivor() {
+            return Survivor.Load<GameObject>();
         }
     }
 }

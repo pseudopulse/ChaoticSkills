@@ -64,7 +64,22 @@ Destroyer (Special) - Charge up a piercing blade for 900%-3700% damage. Emits a 
 ## Acrid
 Pathosis (Passive) - Attacks that apply poison instead apply Pathosis. Targets afflicted with Pathosis share damage taken with the nearby afflicted. 7.5s duration
 
+## Railgunner
+HR-30 Redirector (Primary) - Toss a device that redirects shots into nearby enemies when struck, amplifying their damage. Hold up to 4.
+
 # Changelog
+## 1.8.3
+- updated BepInIncompatibility
+## 1.8.2
+- Added config for uncapping allies with lysate cell
+## 1.8.1
+- made artificer alt jetpack not make a brand new state machine
+## 1.8.0
+- HOLY SHIT IS THAT AN ULTRAKILL REFERENCE (added HR-30 Redirector as an alternate primary for Railgunner)
+- fixed certain skills being configurable when they shouldn't (turret primaries)
+- made flamerang agile
+## 1.7.6
+- fixed captain beacons and mul-t primaries not being configurable
 ## 1.7.5
 - added Flamerang as an alternate primary for Artificer
 ## 1.7.0

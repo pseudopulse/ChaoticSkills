@@ -1,4 +1,7 @@
 using System;
+using HG;
+using Mono.Cecil.Cil;
+using MonoMod.Cil;
 
 namespace ChaoticSkills.Content.Artificer {
     public class Jetpack : SkillBase<Jetpack> {
@@ -20,6 +23,7 @@ namespace ChaoticSkills.Content.Artificer {
         public override string Name => "Overcharged Jetpack";
         public override bool Passive => true;
         public static GameObject jetpackUIPrefab;
+        public static int slotIndex = 0;
         public override void PostCreation()
         {
             base.PostCreation();
@@ -36,16 +40,30 @@ namespace ChaoticSkills.Content.Artificer {
             machinesList.Add(machine);
             machines.stateMachines = machinesList.ToArray();
 
+            for (int i = 0; i < mageBody.GetComponents<GenericSkill>().Length; i++) {
+                if (mageBody.GetComponents<GenericSkill>()[i].skillFamily.variants[0].skillDef == SkillDef) {
+                    slotIndex = i;
+                }
+            }
+
             On.RoR2.CharacterBody.Start += (orig, self) => {
                 orig(self);
                 foreach (GenericSkill skill in self.GetComponents<GenericSkill>()) {
                     if (skill.skillName.ToLower().Contains("passive") && skill.skillDef == SkillDef) {
-                        EntityStateMachine.FindByCustomName(self.gameObject, "Jet").enabled = false;
-                        EntityStateMachine.FindByCustomName(self.gameObject, "CoolerJet").enabled = true;
-                        EntityStateMachine.FindByCustomName(self.gameObject, "CoolerJet").SetNextState(new EntityStates.Artificer.Jetpack());
+                        EntityStateMachine machine = EntityStateMachine.FindByCustomName(self.gameObject, "Jet");
+                        EntityStateMachine m2 = EntityStateMachine.FindByCustomName(self.gameObject, "Body");
+                        m2.initialStateType = new(typeof(GenericCharacterMain));
+                        m2.mainStateType = new(typeof(GenericCharacterMain));
+                        if (m2.IsInMainState()) {
+                            m2.SetNextState(new GenericCharacterMain());
+                        }
+                        machine.initialStateType = new(typeof(EntityStates.Artificer.Jetpack));
+                        machine.mainStateType = new(typeof(EntityStates.Artificer.Jetpack));
+                        machine.SetNextState(new EntityStates.Artificer.Jetpack());
                     }
                 }
             };
+
 
             jetpackUIPrefab = PrefabAPI.InstantiateClone(Main.Assets.LoadAsset<GameObject>("Assets/Prefabs/Artificer/Jetpack/FuelIndicator.prefab"), "ArtiFuelHUD");
         }

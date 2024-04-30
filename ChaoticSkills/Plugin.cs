@@ -10,11 +10,12 @@ using BepInEx.Configuration;
 namespace ChaoticSkills {
     [BepInPlugin(PluginGUID, PluginName, PluginVersion)]
     [BepInDependency("xyz.yekoc.PassiveAgression", BepInDependency.DependencyFlags.SoftDependency)] // soft dependency so it loads first
+    [BepInIncompatibility("com.xoxfaby.BetterUI")]
     public class Main : BaseUnityPlugin {
         public const string PluginGUID = PluginAuthor + "." + PluginName;
         public const string PluginAuthor = "pseudopulse";
         public const string PluginName = "ChaoticSkills";
-        public const string PluginVersion = "1.4.0";
+        public const string PluginVersion = "1.8.0";
         public static BepInEx.Logging.ManualLogSource ModLogger;
         public static AssetBundle Assets;
         public static ConfigFile config;

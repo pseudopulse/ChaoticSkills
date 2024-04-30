@@ -21,6 +21,7 @@ namespace ChaoticSkills.Content.Commando {
         public override List<string> Keywords => new() { Utils.Keywords.Freeze };
         public static GameObject IceGrenadeProjectile;
         public static GameObject ExplosionVFX;
+        public static AnimatorOverrideController animatorOverrideController;
         public override void PostCreation()
         {
            IceGrenadeProjectile = PrefabAPI.InstantiateClone(Utils.Paths.GameObject.CommandoGrenadeProjectile.Load<GameObject>(), "FrostGrenade");
@@ -43,6 +44,13 @@ namespace ChaoticSkills.Content.Commando {
 
            ContentAddition.AddProjectile(IceGrenadeProjectile);
            ContentAddition.AddEffect(ExplosionVFX);
+
+           GameObject surv = Survivor.Load<GameObject>();
+           GameObject model = surv.GetComponent<ModelLocator>()._modelTransform.gameObject;
+           Animator anim = model.GetComponent<Animator>();
+           RuntimeAnimatorController cont = anim.runtimeAnimatorController;
+
+           
         }
     }
 }
