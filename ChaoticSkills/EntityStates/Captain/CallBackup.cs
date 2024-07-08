@@ -14,7 +14,8 @@ namespace ChaoticSkills.EntityStates.Captain {
                     Utils.Paths.GameObject.ToolbotMonsterMaster.Load<GameObject>(),
                     Utils.Paths.GameObject.TreebotMonsterMaster.Load<GameObject>(),
                     Utils.Paths.GameObject.LoaderMonsterMaster.Load<GameObject>(),
-                    Utils.Paths.GameObject.CommandoMonsterMaster.Load<GameObject>()
+                    Utils.Paths.GameObject.CommandoMonsterMaster.Load<GameObject>(),
+                    Utils.Paths.GameObject.Bandit2MonsterMaster.Load<GameObject>()
                 };
 
                 MasterSummon summon = new();
