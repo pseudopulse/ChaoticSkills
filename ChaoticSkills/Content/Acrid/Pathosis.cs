@@ -22,7 +22,7 @@ namespace ChaoticSkills.Content.Acrid {
         public override string Name => "Pathosis";
         public override bool Passive => true;
         public static BuffDef PathosisBuff;
-        public static DamageType PathosisDamageType = (DamageType)((uint)DamageType.OutOfBounds * (uint)2);
+        public static DamageTypeCombo PathosisDamageType = (ulong)DamageType.OutOfBounds * 2;
         public static ProcType PathosisMask = (ProcType)((int)ProcType.Count * 39);
         public override void PostCreation()
         {
@@ -39,7 +39,7 @@ namespace ChaoticSkills.Content.Acrid {
 
             On.RoR2.CrocoDamageTypeController.GetDamageType += (orig, self) => {
                 if (self.passiveSkillSlot && self.passiveSkillSlot.skillDef == SkillDef) {
-                    return PathosisDamageType;
+                    return PathosisDamageType | orig(self);
                 }
                 else {
                     return orig(self);
@@ -50,7 +50,7 @@ namespace ChaoticSkills.Content.Acrid {
                 orig(self, info);
                 if (NetworkServer.active && info.attacker && info.attacker.GetComponent<TeamComponent>()) {
                     // apply pathosis
-                    if (info.damageType.HasFlag(PathosisDamageType)) {
+                    if ((info.damageType.damageTypeCombined & PathosisDamageType) != 0) {
                         self.body.AddTimedBuff(PathosisBuff, 7.5f);
                     }
 

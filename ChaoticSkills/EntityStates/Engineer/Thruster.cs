@@ -1,5 +1,6 @@
 using System;
 using EntityStates.Merc.Weapon;
+using static RoR2.CharacterMotor;
 
 namespace ChaoticSkills.EntityStates.Engineer {
     public class Thruster : BaseState {
@@ -22,11 +23,11 @@ namespace ChaoticSkills.EntityStates.Engineer {
             On.RoR2.GlobalEventManager.OnCharacterHitGroundServer -= Impact;
         }
 
-        private void Impact(On.RoR2.GlobalEventManager.orig_OnCharacterHitGroundServer orig, GlobalEventManager self, CharacterBody body, Vector3 impactVelocity) {
+        private void Impact(On.RoR2.GlobalEventManager.orig_OnCharacterHitGroundServer orig, GlobalEventManager self, CharacterBody body, HitGroundInfo info) {
             if (body == base.characterBody) {
-                orig(self, body, Vector3.zero);
-                float damageCoeff = Mathf.Clamp(1f + (Mathf.Abs(impactVelocity.y * 5) * 0.3f), 1f, 25f);
-                float radiusCoeff = Mathf.Clamp(1f + (Mathf.Abs(impactVelocity.y * 5) * 0.3f), 1f, 3f);
+                orig(self, body, info);
+                float damageCoeff = Mathf.Clamp(1f + (Mathf.Abs(info.velocity.y * 5) * 0.3f), 1f, 25f);
+                float radiusCoeff = Mathf.Clamp(1f + (Mathf.Abs(info.velocity.y * 5) * 0.3f), 1f, 3f);
                 BlastAttack attack = new();
                 attack.damageType = DamageType.Stun1s;
                 attack.baseDamage = base.damageStat * damageCoeff;
@@ -60,7 +61,7 @@ namespace ChaoticSkills.EntityStates.Engineer {
             }
             else {
                 // Debug.Log("impact wasnt us");
-                orig(self, body, impactVelocity);
+                orig(self, body, info);
             }
         }
 
