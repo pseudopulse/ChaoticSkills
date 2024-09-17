@@ -68,7 +68,7 @@ namespace ChaoticSkills.EntityStates.Engineer {
 
                     foreach (EntityStateMachine esm in constructionBody.GetComponents<EntityStateMachine>()) {
                         if (esm.customName == "Body") {
-                            esm.SetState(EntityStateCatalog.InstantiateState(esm.mainStateType));
+                            esm.SetState(EntityStateCatalog.InstantiateState(EntityStateCatalog.GetStateIndex(esm.mainStateType.stateType)));
                         }
                     }
                 }
